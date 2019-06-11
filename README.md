@@ -16,6 +16,9 @@
   * HTML5 Canvas
   * Vanilla JS
  
+#Wireframe
+ ![wireframe](./assets/images/WireFrame.png)
+
 # Implementation Timeline
   ## Day 1
     * Create user controls, and user physics
