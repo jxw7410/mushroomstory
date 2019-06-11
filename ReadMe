@@ -1,0 +1,35 @@
+### FreeRun
+
+### Background and Overview
+
+*FreeRun is a 2d puzzle platform game where the player has to navigate through platforms with the game physics.
+*Motivation behind this project is to explore writing code for game physics, as well as creating a light hearted game that anyone can easily pick up and enjoy
+
+### Functionality and MVP features
+* Players have the following ability to move left/right and jump off the ground, and walls
+* Players can slow down their gravity vector by "sliding" against the walls
+* Several stages which gets increasingly tough, but can be solved by exploiting the game physics. There is no one solution, so the user is free to do what they want.
+* While there is no score system, there is a time system, so the players can try to best each other through time
+* There will be background music, and sound effects for moving, and jumping
+
+### Architecture and Technologies
+* HTML5 canvas
+* Vanilla Javascript
+
+###Implementation Timeline
+
+##Day 1
+ *Implement user controls, and character physics
+
+##Day2
+ *Implement particle collision against the obstacle course, particularly the wall sliding
+  features 
+
+##Day3
+ *Design the stages/levels in which the users can play though
+
+##Day4
+ *Continue to work on the stages such as making moving platforms to add some fun to the      game  
+
+##Day5
+ *Continue to work on anything that is not complete or glitchy
