@@ -10,8 +10,8 @@ class UserModel extends RootModel{
         this.old_pos_x = pos_x;
         this.old_pos_y = pos_y;
         
-        this.width = 4;
-        this.height = 3;
+        this.width = 6;
+        this.height = 6;
         this.delta_x = 0;
         this.delta_y = 0;
 

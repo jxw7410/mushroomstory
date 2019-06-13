@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
        
         if (controller.jumpPress)
             player.jump();
+
         if (controller.doublejumpPress)
             player.doubleJump();
 
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     window.addEventListener('keyup', controller.handleKeyPress)
 
     display.tile_sheet.image.src='./assets/images/SimpleTileset2.png';
+    display.playerSprite.image.src='./assets/images/Mushroom.png';
 
     const engine = new Engine(update, render)
 

@@ -7,7 +7,7 @@ class Display {
         this.ctx = this.canvas.getContext('2d');
         
         this.tile_sheet = new TileSheet(4, 64);
-
+        this.playerSprite = new TileSheet(32, 30);
 
         this.drawMap = this.drawMap.bind(this);
         this.drawPlayer = this.drawPlayer.bind(this);
@@ -17,7 +17,6 @@ class Display {
 
     drawMap(map, columns){
         for (let index = map.length - 1; index > -1; --index){
-            //debugger  
 
             let value = map[index] - 1;
 
@@ -25,19 +24,22 @@ class Display {
             let source_y = Math.floor(value / this.tile_sheet.columns) * this.tile_sheet.tile_size;
             let destination_x = (index % columns) * this.tile_sheet.tile_size;
             let destination_y = Math.floor(index / columns) * this.tile_sheet.tile_size;
+            //this.ctx.imageSmoothingEnabled = false;
             this.ctx.drawImage(this.tile_sheet.image, 
                     source_x, source_y, this.tile_sheet.tile_size, 
                     this.tile_sheet.tile_size, destination_x, destination_y,
                     this.tile_sheet.tile_size, this.tile_sheet.tile_size);
-            this.ctx.imageSmoothingEnabled = false;
+
  
         }
     }
     
     drawPlayer(pos_x, pos_y, width, height, color){
-        this.ctx.fillStyle = color;
-        this.ctx.fillRect(Math.round(pos_x), Math.round(pos_y), width, height);
-        this.ctx.imageSmoothingEnabled = false;
+        //this.ctx.fillStyle = color;
+        //this.ctx.fillRect(Math.round(pos_x), Math.round(pos_y), width, height);
+        //this.ctx.imageSmoothingEnabled = false;
+        this.ctx.drawImage(this.playerSprite.image, 7, 10, 20, 20, Math.round(pos_x), Math.round(pos_y), 16, 16);
+        
     }
 
 

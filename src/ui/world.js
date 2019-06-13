@@ -95,12 +95,12 @@ class World {
                 return;
             case 1: 
                 //debugger
-                if (this.collideTop (object, tile_y)) return;
+                if (this.collideTop (object, tile_y+2)) return;
                 this.collideBottom(object, tile_y + this.tile_size);
                 return;
             case 2:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
-                this.collideTop(object, tile_y);
+                this.collideTop(object, tile_y+2);
                 return;
 
             case 3:
@@ -118,7 +118,6 @@ class World {
     collideTop(object, tile_y){
         //debugger
         if (object.bottom() > tile_y && object.old_bottom() <= tile_y ){
-            //debugger
             object.pos_y = (tile_y-0.01) - object.height;
             object.delta_y = 0;
             object.delta_x = 0;
