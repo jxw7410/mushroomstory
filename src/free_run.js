@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded', ()=> {
     const render = () => {
         display.clearCanvas();
         display.drawBackground();
+        display.drawClouds();
         display.drawMap(world.map, world.columns);
-        display.drawPlayer(player.pos_x, player.pos_y, player.width, player.height, 'red');
+        display.drawPlayer(player.pos_x, player.pos_y, player.delta_x, player.delta_y, player.prev_direction, player.frame_sets);
     }
 
     const update = () => {
@@ -37,10 +38,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
     window.addEventListener('keyup', controller.handleKeyPress)
 
     display.tile_sheet.image.src='./assets/images/SimpleTileset2.png';
-    display.playerSprite.image.src='./assets/images/Mushroom.png';
-
+    display.playerSpriteForward.image.src='./assets/images/Mushroom.png';
+    display.playerSpriteBackward.image.src='./assets/images/Mushroom_reverse.png';
+    display.cloudSprite.image.src='./assets/images/background2.png';
+    display.background.image.src = './assets/images/background3.png';
+   
     const engine = new Engine(update, render)
-
-
-    engine.run();
+    setTimeout(() => engine.run(), 500);
 });

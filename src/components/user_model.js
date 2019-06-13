@@ -10,8 +10,8 @@ class UserModel extends RootModel{
         this.old_pos_x = pos_x;
         this.old_pos_y = pos_y;
         
-        this.width = 6;
-        this.height = 6;
+        this.width = 16;
+        this.height = 16;
         this.delta_x = 0;
         this.delta_y = 0;
 
@@ -24,40 +24,60 @@ class UserModel extends RootModel{
         this.jump = this.jump.bind(this);
         this.doubleJump = this.doubleJump.bind(this);
         this.handleCollisionWithWorld = this.handleCollisionWithWorld.bind(this);
+
+
+        this.prev_direction = 'RIGHT';
+        this.x_frames = 0;
+
+        
+        this.frame_sets = {
+            "idle-left" : [{ sx: 7, sy: 10, width: 20, height: 20 }],
+            "jump-left":  [{ sx: 328, sy: 2, width: 15, height: 20 }],
+            "move-left" : [
+                { sx: 37, sy: 10, width: 20, height: 20 },
+                { sx: 70, sy: 12, width: 20, height: 18 }
+            ],
+            "idle-right": [{ sx: 932, sy: 10, width: 20, height: 20 }],
+            "jump-right": [{ sx: 709, sy: 2, width: 15, height: 20 }],
+            "move-right": [
+                { sx: 901, sy: 10, width: 20, height: 20 },
+                { sx: 869, sy: 12, width: 20, height: 18 }
+            ],
+        }
         
     }
 
     moveLeft(){
         this.delta_x = 0;
-        this.pos_x -= 1;
+        this.pos_x -= 4;
     }
 
     moveRight(){
         this.delta_x = 0;
-        this.pos_x += 1;
+        this.pos_x += 4;
     }
 
     jump(){
         if(!this.jumping){
             this.jumping = true;
             if (this.type === 'slide-right'){
-                this.delta_y = -1;
-                this.delta_x = 1;
+                this.delta_y = -4;
+                this.delta_x = 4;
                 this.type = null;
             } else if ( this.type === 'slide-left'){
-                this.delta_y = -1;
-                this.delta_x = -1;
+                this.delta_y = -4;
+                this.delta_x = -4;
                 this.type = null;
             }
             else
-                this.delta_y = -2;
+                this.delta_y = -8;
         }
     }
 
     doubleJump(){
         if(this.jumping && !this.doubleJumping){
             this.doubleJumping = true;
-            this.delta_y = -1;
+            this.delta_y = -8;
         }
     }
 

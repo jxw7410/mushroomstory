@@ -5,13 +5,13 @@ import * as map1_collision from '../resources/map1_collide.json';
 
 class World {
     constructor(){
-        this.gravity = 0.098;
+        this.gravity = 0.5;
         this.friction = 0.6;
         this.player = new UserModel(10, 130);
         this.collision = this.collision.bind(this);
         this.update = this.update.bind(this);
         
-        this.tile_size = 4; //represets 4 pixel
+        this.tile_size = 16; //represets 16 pixel
         this.columns = 76; //This has to match evenly to the canvas width
         this.rows = 38; //match to canvas height
 
@@ -78,29 +78,26 @@ class World {
 
     isCollide(value, object, tile_x, tile_y){
         switch(value){
-            case 769:
+            case 32:
+            
                 this.collideRight(object, tile_x + this.tile_size, 'SLIDE');
                 return;
-            case 770:
+            case 30:
                 this.collideLeft(object, tile_x, 'SLIDE');
                 return;
         
-            case 1519:
+            case 81:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
                 this.collideLeft(object, tile_x);
                 return
-            case 1520:
+            case 84:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
                 this.collideRight(object, tile_x + this.tile_size);
                 return;
             case 1: 
                 //debugger
-                if (this.collideTop (object, tile_y+2)) return;
+                if (this.collideTop (object, tile_y)) return;
                 this.collideBottom(object, tile_y + this.tile_size);
-                return;
-            case 2:
-                if (this.collideBottom(object, tile_y + this.tile_size)) return;
-                this.collideTop(object, tile_y+2);
                 return;
 
             case 3:
@@ -131,11 +128,12 @@ class World {
 
 
     collideLeft(object, tile_x, type){
+        //debugger
         if (type === 'SLIDE'){
             if (object.right() > tile_x){
                 object.pos_x = (tile_x - 0.01) - object.width;
                 object.delta_x = 0;
-                object.delta_y = 0.1;
+                object.delta_y = 0.5;
                 object.jumping = false;
                 object.doubleJumping = false;
                 object.type = "slide-left";
@@ -158,6 +156,7 @@ class World {
     }
 
     collideRight(object, tile_x, type){
+        //debugger
         if (type === 'SLIDE'){
             if(object.left() < tile_x){
                 object.pos_x = tile_x;
