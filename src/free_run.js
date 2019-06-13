@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const render = () => {
         display.clearCanvas();
-        display.drawMap(world.map, world.column);
+        display.drawBackground();
+        display.drawMap(world.map, world.columns);
         display.drawPlayer(player.pos_x, player.pos_y, player.width, player.height, 'red');
     }
 

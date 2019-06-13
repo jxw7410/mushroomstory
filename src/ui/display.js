@@ -12,7 +12,7 @@ class Display {
         this.drawMap = this.drawMap.bind(this);
         this.drawPlayer = this.drawPlayer.bind(this);
 
-    
+
     }
 
     drawMap(map, columns){
@@ -29,6 +29,7 @@ class Display {
                     source_x, source_y, this.tile_sheet.tile_size, 
                     this.tile_sheet.tile_size, destination_x, destination_y,
                     this.tile_sheet.tile_size, this.tile_sheet.tile_size);
+            this.ctx.imageSmoothingEnabled = false;
  
         }
     }
@@ -36,17 +37,22 @@ class Display {
     drawPlayer(pos_x, pos_y, width, height, color){
         this.ctx.fillStyle = color;
         this.ctx.fillRect(Math.round(pos_x), Math.round(pos_y), width, height);
+        this.ctx.imageSmoothingEnabled = false;
     }
 
 
     render(){
         this.ctx.drawImage(this.overlapCanvas.canvas, 0, 0, 800, 800,
                 0, 0, this.canvas.width, this.canvas.height)
-    
     }
 
     clearCanvas(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    }
+
+    drawBackground(){
+        this.ctx.fillStyle ='lightblue';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
 

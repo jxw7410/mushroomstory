@@ -10,13 +10,14 @@ class UserModel extends RootModel{
         this.old_pos_x = pos_x;
         this.old_pos_y = pos_y;
         
-        this.width = 5;
-        this.height = 5;
+        this.width = 4;
+        this.height = 3;
         this.delta_x = 0;
         this.delta_y = 0;
 
         this.jumping = true;
         this.doubleJumping = true;
+        this.type = null;
 
         this.moveLeft = this.moveLeft.bind(this);
         this.moveRight = this.moveRight.bind(this);
@@ -27,24 +28,36 @@ class UserModel extends RootModel{
     }
 
     moveLeft(){
+        this.delta_x = 0;
         this.pos_x -= 1;
     }
 
     moveRight(){
+        this.delta_x = 0;
         this.pos_x += 1;
     }
 
     jump(){
         if(!this.jumping){
             this.jumping = true;
-            this.delta_y = -5;
+            if (this.type === 'slide-right'){
+                this.delta_y = -1;
+                this.delta_x = 1;
+                this.type = null;
+            } else if ( this.type === 'slide-left'){
+                this.delta_y = -1;
+                this.delta_x = -1;
+                this.type = null;
+            }
+            else
+                this.delta_y = -2;
         }
     }
 
     doubleJump(){
         if(this.jumping && !this.doubleJumping){
             this.doubleJumping = true;
-            this.delta_y = -4;
+            this.delta_y = -1;
         }
     }
 
@@ -93,6 +106,8 @@ class UserModel extends RootModel{
     }
 
     update(){
+        this.old_pos_x = this.pos_x;
+        this.old_pos_y = this.pos_y;
         this.pos_x += this.delta_x;
         this.pos_y += this.delta_y;
     }

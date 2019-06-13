@@ -6,27 +6,44 @@ class RootModel{
     }
 
     centerX() {
-        return this.posX + this.width * 0.5;
+        return this.pos_y + this.width * 0.5;
     }
 
     centerY() {
-        return this.posY + this.height * 0.5;
+        return this.pos_y+ this.height * 0.5;
     }
 
     top() {
-        return this.posY;
+        return this.pos_y;
+    }
+
+    old_top(){
+        return this.old_pos_y;
     }
 
     bottom() {
-        return this.posY + this.height;
+        return this.pos_y + this.height;
+    }
+
+    old_bottom(){
+        return this.old_pos_y + this.height;
     }
 
     left() {
-        return this.posX;
+        return this.pos_x;
     }
 
+    old_left(){
+        return this.old_pos_x;
+    }
+
+
     right() {
-        return this.posX + this.width;
+        return this.pos_x + this.width;
+    }
+
+    old_right(){
+        return this.old_pos_x + this.width;
     }
 }
 

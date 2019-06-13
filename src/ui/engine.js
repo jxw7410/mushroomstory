@@ -13,14 +13,11 @@ class Engine {
     }
 
     run() {
-        //Seems redundant, but gives the ability to throttle
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-            this.update();
-            this.render();
-            this.RAF = window.requestAnimationFrame(this.run);
-        }, this.FPS)
+        this.update();
+        this.render();
+        this.RAF = window.requestAnimationFrame(this.run);
     }
+
 }
 
 export default Engine;
