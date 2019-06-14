@@ -1,7 +1,7 @@
-import Display from './ui/display';
-import World from './ui/world';
-import Engine from './ui/engine';
-import Controller from './ui/controller';
+import Display from './components/display';
+import World from './components/world';
+import Engine from './components/engine';
+import Controller from './components/controller';
 
 document.addEventListener('DOMContentLoaded', ()=> {
 
@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
         display.drawBackground();
         display.drawClouds();
         display.drawMap(world.map, world.columns);
-        display.drawPlayer(player.pos_x, player.pos_y, player.delta_x, player.delta_y, player.prev_direction, player.frame_sets);
+        display.drawMap(world.map_assets, world.columns)
+        display.drawPlayer(player);
     }
 
     const update = () => {
@@ -38,10 +39,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
     window.addEventListener('keyup', controller.handleKeyPress)
 
     display.tile_sheet.image.src='./assets/images/SimpleTileset2.png';
-    display.playerSpriteForward.image.src='./assets/images/Mushroom.png';
-    display.playerSpriteBackward.image.src='./assets/images/Mushroom_reverse.png';
     display.cloudSprite.image.src='./assets/images/background2.png';
     display.background.image.src = './assets/images/background3.png';
+
+    player.playerSpriteLeft.image.src = './assets/images/Mushroom.png';
+    player.playerSpriteRight.image.src = './assets/images/Mushroom_reverse.png';
    
     const engine = new Engine(update, render)
     setTimeout(() => engine.run(), 500);

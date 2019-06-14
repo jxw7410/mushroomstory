@@ -1,6 +1,7 @@
-import UserModel from '../components/user_model'
+import UserModel from './user_model'
 import * as map1 from '../resources/map-1.json';
 import * as map1_collision from '../resources/map1_collide.json';
+import * as map1_asset from '../resources/map1_assets.json';
 
 
 class World {
@@ -20,6 +21,7 @@ class World {
         this.width = this.tile_size * this.columns;
 
         this.map = map1.layers[0].data;
+        this.map_assets = map1_asset.layers[0].data;
         this.collisionMap = map1_collision.layers[0].data;
 
 
@@ -78,24 +80,38 @@ class World {
 
     isCollide(value, object, tile_x, tile_y){
         switch(value){
+            //Wall Slide right
             case 32:
-            
                 this.collideRight(object, tile_x + this.tile_size, 'SLIDE');
                 return;
+
+            //Wall slide left
             case 30:
                 this.collideLeft(object, tile_x, 'SLIDE');
                 return;
-        
+            
+            //Bottom-left
             case 81:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
                 this.collideLeft(object, tile_x);
                 return
+            
+            //Bottom-right
             case 84:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
                 this.collideRight(object, tile_x + this.tile_size);
                 return;
+            //Top-right
+            case 16:
+                if (this.collideTop(object, tile_y)) return;
+                this.collideRight(object, tile_x + this.tile_size);
+                return;
+            //Top-left
+            case 14:
+                if (this.collideTop(object, tile_y)) return;
+                this.collideLeft(object, tile_x);
+
             case 1: 
-                //debugger
                 if (this.collideTop (object, tile_y)) return;
                 this.collideBottom(object, tile_y + this.tile_size);
                 return;
@@ -106,8 +122,6 @@ class World {
             case 4:
                 this.collideRight(object, tile_x + this.tile_size); 
                 return;
-            default: 
-                break;
         }
     }
 
@@ -115,9 +129,8 @@ class World {
     collideTop(object, tile_y){
         //debugger
         if (object.bottom() > tile_y && object.old_bottom() <= tile_y ){
-            object.pos_y = (tile_y-0.01) - object.height;
+            object.pos_y = (tile_y-0.1) - object.height;
             object.delta_y = 0;
-            object.delta_x = 0;
             object.jumping = false;
             object.doubleJumping = false;
             object.type = null;
@@ -131,7 +144,7 @@ class World {
         //debugger
         if (type === 'SLIDE'){
             if (object.right() > tile_x){
-                object.pos_x = (tile_x - 0.01) - object.width;
+                object.pos_x = (tile_x - 0.1) - object.width;
                 object.delta_x = 0;
                 object.delta_y = 0.5;
                 object.jumping = false;
@@ -141,12 +154,12 @@ class World {
             }
         }
         else if (object.right() > tile_x && object.old_right() <= tile_x){
-            object.pos_x = (tile_x - 0.01) - object.width;
+            object.pos_x = (tile_x - 0.1) - object.width;
             object.delta_x = 0; 
             object.type = null;
             return true;
         } else if (object.right() > tile_x) {
-            object.pos_x = (tile_x - 0.01) - object.width;
+            object.pos_x = (tile_x - 0.1) - object.width;
             object.delta_x = 0;
             object.type = null;
             return true;
@@ -187,7 +200,7 @@ class World {
         if (object.top() < tile_y && object.old_top() >= tile_y){
             object.pos_y = tile_y;
             object.delta_y = 0;
-            object.delta_x = 0;
+            //object.delta_x = 0;
             object.type = null;
             return true;
         }
@@ -195,9 +208,7 @@ class World {
     }
 
     update(){
-        this.player.delta_y += this.gravity;
-    
-        this.player.update();
+        this.player.update(this.gravity, 0.7);
         this.collision(this.player);
         this.map_collision(this.player);
     }
