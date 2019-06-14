@@ -1,14 +1,13 @@
 import UserModel from './user_model'
-import * as map1 from '../resources/map-1.json';
-import * as map1_collision from '../resources/map1_collide.json';
-import * as map1_asset from '../resources/map1_assets.json';
-
+import maps from './all_maps';
+import FoodModel from './food_model';
+import TileSheet from './tilesheet';
 
 class World {
     constructor(){
         this.gravity = 0.5;
         this.friction = 0.6;
-        this.player = new UserModel(10, 130);
+        this.player = new UserModel(0, 0);
         this.collision = this.collision.bind(this);
         this.update = this.update.bind(this);
         
@@ -20,17 +19,38 @@ class World {
         this.height = this.tile_size * this.rows;
         this.width = this.tile_size * this.columns;
 
-        this.map = map1.layers[0].data;
-        this.map_assets = map1_asset.layers[0].data;
-        this.collisionMap = map1_collision.layers[0].data;
+
+        this.maps = maps();
+        this.map_index = 0;
+        this.map = null;
+        this.map_assets = null;
+        this.collisionMap = null;
+        
+        this.foodSpriteSheet = new TileSheet(16, 8);
+        this.food_models = null;
 
 
         this.collision = this.collision.bind(this);
         this.isCollide = this.isCollide.bind(this);
         this.map_collision = this.map_collision.bind(this);
+        this.generateFoodModels = this.generateFoodModels.bind(this);
     }
 
     //Could be player or maybe even moving platforms
+    load(){
+        this.map = this.maps[this.map_index].background;
+        this.map_assets = this.maps[this.map_index].assets;
+        this.collisionMap = this.maps[this.map_index].collision;
+        this.player.pos_x = this.maps[this.map_index].init_x;
+        this.player.pos_y = this.maps[this.map_index].init_y;
+        this.generateFoodModels();
+    }
+    generateFoodModels(){
+        this.food_models = this.maps[this.map_index].foodsprite_coordinates.map( coord => {
+            return new FoodModel(coord.x * this.tile_size, coord.y * this.tile_size, this.foodSpriteSheet, this.player);
+        });
+    }
+
     collision(object){
         if (object.pos_x < 0) 
            object.handleCollisionWithWorld('1', this);
@@ -89,7 +109,15 @@ class World {
             case 30:
                 this.collideLeft(object, tile_x, 'SLIDE');
                 return;
-            
+            case 21:
+                if (this.collideTop(object, tile_y)) return;
+                //debugger
+                this.collideLeft(object, tile_x, 'SLIDE');
+                return;
+            case 22:
+                if (this.collideTop(object, tile_y)) return;
+                this.collideRight(object, tile_x + this.tile_size, 'SLIDE');
+                return;
             //Bottom-left
             case 81:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
@@ -127,90 +155,26 @@ class World {
 
 
     collideTop(object, tile_y){
-        //debugger
-        if (object.bottom() > tile_y && object.old_bottom() <= tile_y ){
-            object.pos_y = (tile_y-0.1) - object.height;
-            object.delta_y = 0;
-            object.jumping = false;
-            object.doubleJumping = false;
-            object.type = null;
-            return true;
-        } 
-        return false;
+       return object.handleCollideTop(tile_y);    
     }
 
-
     collideLeft(object, tile_x, type){
-        //debugger
-        if (type === 'SLIDE'){
-            if (object.right() > tile_x){
-                object.pos_x = (tile_x - 0.1) - object.width;
-                object.delta_x = 0;
-                object.delta_y = 0.5;
-                object.jumping = false;
-                object.doubleJumping = false;
-                object.type = "slide-left";
-                return true;
-            }
-        }
-        else if (object.right() > tile_x && object.old_right() <= tile_x){
-            object.pos_x = (tile_x - 0.1) - object.width;
-            object.delta_x = 0; 
-            object.type = null;
-            return true;
-        } else if (object.right() > tile_x) {
-            object.pos_x = (tile_x - 0.1) - object.width;
-            object.delta_x = 0;
-            object.type = null;
-            return true;
-        }
-
-        return false;
+        return object.handleCollideLeft(tile_x, type);
     }
 
     collideRight(object, tile_x, type){
-        //debugger
-        if (type === 'SLIDE'){
-            if(object.left() < tile_x){
-                object.pos_x = tile_x;
-                object.delta_y = 0.1;
-                object.delta_x = 0;
-                object.type = "slide-right";
-                object.jumping = false;
-                object.doubleJumping = false;
-                return true;
-            }
-        }
-        else if(object.left() < tile_x && object.old_left() >= tile_x){
-            object.pos_x = tile_x;
-            object.delta_x = 0;
-            object.type = null;
-            return true;
-        }
-        else if (object.left() < tile_x){ 
-            object.pos_x = tile_x;
-            object.delta_x = 0;
-            object.type = null;
-            return true;
-        }
-        return false;
+       return object.handleCollideRight(tile_x, type)
     }
 
     collideBottom(object, tile_y){
-        if (object.top() < tile_y && object.old_top() >= tile_y){
-            object.pos_y = tile_y;
-            object.delta_y = 0;
-            //object.delta_x = 0;
-            object.type = null;
-            return true;
-        }
-        return false;
+        return object.handleCollideBottom(tile_y);
     }
 
     update(){
-        this.player.update(this.gravity, 0.7);
+        this.player.update(this.gravity, 0.6);
         this.collision(this.player);
         this.map_collision(this.player);
+        this.food_models.forEach( food_model => food_model.collide());
     }
 }
 

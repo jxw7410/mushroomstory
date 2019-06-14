@@ -39,8 +39,15 @@ class Display {
         }
     }
 
-    drawPlayer(player) {
+        drawPlayer(player) {
         player.animate(this.ctx);
+    }
+
+    drawFood(food_models){
+        food_models.forEach( food_model => {
+            if (food_model.status === 1)
+                food_model.animate(this.ctx);
+        })
     }
 
     drawClouds() {

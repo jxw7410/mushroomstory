@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
         display.drawClouds();
         display.drawMap(world.map, world.columns);
         display.drawMap(world.map_assets, world.columns)
+        display.drawFood(world.food_models);
         display.drawPlayer(player);
     }
 
@@ -38,13 +39,23 @@ document.addEventListener('DOMContentLoaded', ()=> {
     window.addEventListener('keydown', controller.handleKeyPress)
     window.addEventListener('keyup', controller.handleKeyPress)
 
-    display.tile_sheet.image.src='./assets/images/SimpleTileset2.png';
-    display.cloudSprite.image.src='./assets/images/background2.png';
-    display.background.image.src = './assets/images/background3.png';
 
-    player.playerSpriteLeft.image.src = './assets/images/Mushroom.png';
-    player.playerSpriteRight.image.src = './assets/images/Mushroom_reverse.png';
    
     const engine = new Engine(update, render)
-    setTimeout(() => engine.run(), 500);
+
+    const init = new Promise( function(resolve ,reject) {
+        display.tile_sheet.image.src = './assets/images/SimpleTileset2.png';
+        display.cloudSprite.image.src = './assets/images/background2.png';
+        display.background.image.src = './assets/images/background3.png';
+        player.playerSpriteLeft.image.src = './assets/images/Mushroom.png';
+        player.playerSpriteRight.image.src = './assets/images/Mushroom_reverse.png';
+        world.foodSpriteSheet.image.src = './assets/images/Food.png'
+        resolve("Engine Execute!");
+    });
+
+    init.then( response => {
+        //Pre init the first world
+        world.load();
+        console.log(response);
+        engine.run()});
 });

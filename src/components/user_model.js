@@ -4,11 +4,7 @@ import TileSheet from './tilesheet';
 
 class UserModel extends RootModel {
     constructor(pos_x, pos_y) {
-        super();
-        this.pos_x = pos_x;
-        this.pos_y = pos_y;
-        this.old_pos_x = pos_x;
-        this.old_pos_y = pos_y;
+        super(pos_x, pos_y);
 
         this.width = 16;
         this.height = 16;
@@ -132,6 +128,88 @@ class UserModel extends RootModel {
         }
     }
 
+    handleCollideTop(tile_y) {
+        if (this.bottom() > tile_y && this.old_bottom() <= tile_y) {
+            this.old_pos_y = this.pos_y;
+            this.pos_y = (tile_y) - this.height;
+            this.delta_y = 0;
+            this.jumping = false;
+            this.doubleJumping = false;
+            this.type = null;
+            return true;
+        }
+        return false;
+    }
+
+    handleCollideBottom(tile_y) {
+        if (this.top() < tile_y && this.old_top() >= tile_y) {
+            this.pos_y = tile_y;
+            this.delta_y = 0;
+            //this.delta_x = 0;
+            this.type = null;
+            return true;
+        }
+        return false;
+
+    }
+    handleCollideLeft(tile_x, type) {
+
+        if (type === 'SLIDE') {
+            if (this.right() > tile_x) {
+                this.pos_x = (tile_x - 0.1) - this.width;
+                this.delta_x = 0;
+                this.delta_y = 0.5;
+                this.jumping = false;
+                this.doubleJumping = false;
+                this.type = "slide-left";
+                return true;
+            }
+        }
+        else if (this.right() > tile_x && this.old_right() <= tile_x) {
+            this.pos_x = (tile_x - 0.1) - this.width;
+            this.delta_x = 0;
+            this.type = null;
+            return true;
+        } else if (this.right() > tile_x) {
+            this.pos_x = (tile_x - 0.1) - this.width;
+            this.delta_x = 0;
+            this.type = null;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    handleCollideRight(tile_x, type) {
+        if (type === 'SLIDE') {
+            if (this.left() < tile_x) {
+                this.pos_x = tile_x;
+                this.delta_y = 0.1;
+                this.delta_x = 0;
+                this.type = "slide-right";
+                this.jumping = false;
+                this.doubleJumping = false;
+                return true;
+            }
+        }
+        else if (this.left() < tile_x && this.old_left() >= tile_x) {
+            this.pos_x = tile_x;
+            this.delta_x = 0;
+            this.type = null;
+            return true;
+        }
+        else if (this.left() < tile_x) {
+            this.pos_x = tile_x;
+            this.delta_x = 0;
+            this.type = null;
+            return true;
+        }
+        return false;
+
+    }
+
+
     updateTime() {
         this.accumulated_time += 10;
         this.accumulated_time = this.accumulated_time === 120 ? 0 : this.accumulated_time;
@@ -150,9 +228,9 @@ class UserModel extends RootModel {
             if (this.accumulated_time === 0) {
                 this.prev_direction = 'RIGHT';
                 this.x_frames = this.x_frames === 1 ? 0 : 1;
-            } 
-            
-            ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height+4);
+            }
+
+            ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height + 4);
             this.updateTime()
 
         } else if (this.delta_x < -0.15 && this.delta_y === 0) {
@@ -162,29 +240,29 @@ class UserModel extends RootModel {
             }
 
             frame = this.frame_sets['move-left'][this.x_frames];
-            if (this.accumulated_time === 0) {      
+            if (this.accumulated_time === 0) {
                 this.prev_direction = 'LEFT';
                 this.x_frames = this.x_frames === 1 ? 0 : 1;
-            } 
+            }
 
-            ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height+4);
+            ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height + 4);
             this.updateTime()
         } else if (this.delta_y < 0) {
             if (this.prev_direction === 'RIGHT') {
                 frame = this.frame_sets['jump-right'][0];
-                ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height+4);
+                ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height + 4);
             } else {
                 frame = this.frame_sets['jump-left'][0];
-                ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height+4);
+                ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height + 4);
             }
 
         } else {
             if (this.prev_direction === 'RIGHT') {
                 frame = this.frame_sets['idle-right'][0];
-                ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height+4);
+                ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height + 4);
             } else {
                 frame = this.frame_sets['idle-left'][0];
-                ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height+4);
+                ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, Math.round(this.pos_x), Math.round(this.pos_y), this.width + 4, this.height + 4);
             }
         }
     }
@@ -199,7 +277,7 @@ class UserModel extends RootModel {
         this.pos_x += this.delta_x;
         this.pos_y += this.delta_y;
         this.delta_x *= friction;
-        this.delta_y *= friction + 0.295;
+        this.delta_y *= friction + 0.395;
     }
 
 

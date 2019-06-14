@@ -1,8 +1,11 @@
 
 
 class RootModel{
-    constructor(){
-
+    constructor(pos_x, pos_y){
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        this.old_pos_x = pos_x;
+        this.old_pos_y = pos_y;
     }
 
     centerX() {

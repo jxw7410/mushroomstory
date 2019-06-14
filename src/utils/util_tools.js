@@ -4,10 +4,3 @@ export const collisionDectection = (obj1, obj2) => {
         return false;
     return true;
 }
-
-export const collisionDirection = (obj1, obj2) => {
-    let vector_x = obj1.centerX() - obj2.centerX();
-    let vector_y = obj1.centerY() - obj2.centerY();
-
-    
-}
