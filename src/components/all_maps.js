@@ -8,7 +8,7 @@ import Map from './map';
 const maps = () => {
     return [
         new Map(map1.layers[0].data, map1_asset.layers[0].data, map1_collision.layers[0].data,
-            10, 384,
+            0, 0,
             [
                 { x: 0, y: 20 },
                 { x: 9, y: 30 },
@@ -22,6 +22,7 @@ const maps = () => {
                 { x: 35, y: 33 },
                 { x: 37, y: 33 },
                 { x: 75, y: 36 },
+                { x: 0, y: 2 },
             ]),
     ]
 }

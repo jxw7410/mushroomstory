@@ -29,10 +29,6 @@ class World {
         this.foodSpriteSheet = new TileSheet(16, 8);
         this.food_models = null;
 
-
-        this.collision = this.collision.bind(this);
-        this.isCollide = this.isCollide.bind(this);
-        this.map_collision = this.map_collision.bind(this);
         this.generateFoodModels = this.generateFoodModels.bind(this);
     }
 

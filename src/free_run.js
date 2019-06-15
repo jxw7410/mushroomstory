@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
         display.clearCanvas();
         display.drawBackground();
         display.drawClouds();
-        display.drawMap(world.map, world.columns);
-        display.drawMap(world.map_assets, world.columns)
+        display.drawMap(world.map, world.columns, player);
+        display.drawMap(world.map_assets, world.columns, player)
         display.drawFood(world.food_models);
         display.drawPlayer(player);
     }

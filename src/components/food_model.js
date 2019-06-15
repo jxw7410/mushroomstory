@@ -10,12 +10,12 @@ class FoodModel extends RootModel{
         this.height = 16;
 
         this.status = 1;
-
+    
 
         this.animation_count = 4;
         this.delta_y = 1;
         this.accumulated_time = 0;
-        //Hard coded sprite model
+    
         this.foodSpriteSheet = foodSpriteSheet;
         this.frame_set = { sx: 64, sy: 32, width: 16, height: 16}
 
@@ -36,14 +36,12 @@ class FoodModel extends RootModel{
         if (this.animation_count === 8 || this.animation_count === 0)
             this.delta_y *= -1;
         
-        this.pos_y += this.delta_y;
         this.animation_count += this.delta_y
     }
 
-    animate(ctx){
-       // debugger
+    animate(ctx, dest_x, dest_y){
         ctx.drawImage(this.foodSpriteSheet.image, this.frame_set.sx, this.frame_set.sy, this.frame_set.width, this.frame_set.height,
-                Math.round(this.pos_x), Math.round(this.pos_y), this.width, this.height)
+                 dest_x, dest_y + this.animation_count - 5, this.width, this.height)
         
        if (this.accumulated_time === 0)
             this.updatePosition();
@@ -52,8 +50,9 @@ class FoodModel extends RootModel{
     }   
 
     collide(){
-        if(collisionDectection(this, this.player))
+        if(collisionDectection(this, this.player)){
             this.status = 0;
+        }
     }
 }
 
