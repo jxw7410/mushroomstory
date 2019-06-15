@@ -19,9 +19,6 @@ class FoodModel extends RootModel{
         this.foodSpriteSheet = foodSpriteSheet;
         this.frame_set = { sx: 64, sy: 32, width: 16, height: 16}
 
-        this.updatePosition = this.updatePosition.bind(this);
-        this.updateTime = this.updateTime.bind(this);
-        this.animate = this.animate.bind(this);
     }
 
 

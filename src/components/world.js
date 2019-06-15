@@ -28,11 +28,9 @@ class World {
         
         this.foodSpriteSheet = new TileSheet(16, 8);
         this.food_models = null;
-
-        this.generateFoodModels = this.generateFoodModels.bind(this);
     }
 
-    //Could be player or maybe even moving platforms
+  
     load(){
         this.map = this.maps[this.map_index].background;
         this.map_assets = this.maps[this.map_index].assets;
@@ -47,6 +45,7 @@ class World {
         });
     }
 
+    //Could be player or maybe even moving platforms
     collision(object){
         if (object.pos_x < 0) 
            object.handleCollisionWithWorld('1', this);

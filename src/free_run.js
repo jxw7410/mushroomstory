@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     const init = new Promise( function(resolve ,reject) {
         display.tile_sheet.image.src = './assets/images/SimpleTileset2.png';
-        display.cloudSprite.image.src = './assets/images/background2.png';
-        display.background.image.src = './assets/images/background3.png';
+        display.cloudSprite.image.src = './assets/images/Background2.png';
+        display.background.image.src = './assets/images/Background3.png';
         player.playerSpriteLeft.image.src = './assets/images/Mushroom.png';
         player.playerSpriteRight.image.src = './assets/images/Mushroom_reverse.png';
         world.foodSpriteSheet.image.src = './assets/images/Food.png'
