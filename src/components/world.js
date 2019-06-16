@@ -1,7 +1,8 @@
-import UserModel from './user_model'
+import UserModel from './models/user_model'
 import maps from './all_maps';
-import FoodModel from './food_model';
+import FoodModel from './models/food_model';
 import TileSheet from './tilesheet';
+import PlatformModel from './models/platform_model';
 
 class World {
     constructor(){
@@ -12,37 +13,53 @@ class World {
         this.update = this.update.bind(this);
         
         this.tile_size = 16; //represets 16 pixel
-        this.columns = 76; //This has to match evenly to the canvas width
-        this.rows = 38; //match to canvas height
+        this.columns = 0; //This has to match evenly to actual dimension of the map
+        this.rows = 0; //This has to match evenly to the actual dimension of the map
 
 
-        this.height = this.tile_size * this.rows;
-        this.width = this.tile_size * this.columns;
+        this.height = 0;
+        this.width = 0;
 
 
         this.maps = maps();
         this.map_index = 0;
         this.map = null;
-        this.map_assets = null;
-        this.collisionMap = null;
         
         this.foodSpriteSheet = new TileSheet(16, 8);
+        this.platformSheet = null //Going to share the same tilesheet as the maps
+        //For other sprites maybe
         this.food_models = null;
+        this.platform_models = null;
     }
 
   
-    load(){
-        this.map = this.maps[this.map_index].background;
-        this.map_assets = this.maps[this.map_index].assets;
-        this.collisionMap = this.maps[this.map_index].collision;
-        this.player.pos_x = this.maps[this.map_index].init_x;
-        this.player.pos_y = this.maps[this.map_index].init_y;
+    load(display){
+        //const newMap = this.maps[this.map_index];
+
+
+        this.map = this.maps[this.map_index]
+        this.player.pos_x = this.map.init_x;
+        this.player.pos_y = this.map.init_y;
+        this.columns = this.map.columns;
+        this.rows = this.map.rows;
+        this.width = this.columns * this.tile_size;
+        this.height = this.rows * this.tile_size;
+   
+        display.updateViewPort(this.map);
         this.generateFoodModels();
+        this.generatePlatformModels();
     }
+
     generateFoodModels(){
-        this.food_models = this.maps[this.map_index].foodsprite_coordinates.map( coord => {
+        this.food_models = this.map.food_coordinates.map( coord => {
             return new FoodModel(coord.x * this.tile_size, coord.y * this.tile_size, this.foodSpriteSheet, this.player);
         });
+    }
+
+    generatePlatformModels(){
+        this.platform_models = this.map.platforms.map( platform =>{
+            return new PlatformModel(platform.x * this.tile_size, platform.y * this.tile_size, platform.traversal, this.platformSheet, this.player);
+        })
     }
 
     //Could be player or maybe even moving platforms
@@ -67,27 +84,27 @@ class World {
 
         top = Math.floor(object.top() / this.tile_size);
         left = Math.floor(object.left() / this.tile_size);
-        value = this.collisionMap[top * this.columns + left]
+        value = this.map.collision[top * this.columns + left]
         this.isCollide(value, object, left * this.tile_size, top * this.tile_size);
        
 
         top = Math.floor(object.top() / this.tile_size);
         right = Math.floor(object.right() / this.tile_size);
-        value = this.collisionMap[top * this.columns + right];
+        value = this.map.collision[top * this.columns + right];
         this.isCollide(value, object, right * this.tile_size, top * this.tile_size);
         
     
 
         bottom = Math.floor(object.bottom() / this.tile_size);
         left = Math.floor(object.left() / this.tile_size);
-        value = this.collisionMap[top * this.columns + left];
+        value = this.map.collision[top * this.columns + left];
         this.isCollide(value, object, left * this.tile_size, bottom * this.tile_size);
 
        
 
         bottom = Math.floor(object.bottom() / this.tile_size);
         right = Math.floor(object.right() / this.tile_size);
-        value = this.collisionMap[top * this.columns + right];
+        value = this.map.collision[top * this.columns + right];
         this.isCollide(value, object, right * this.tile_size, bottom * this.tile_size);
 
     }   
@@ -170,6 +187,7 @@ class World {
         this.collision(this.player);
         this.map_collision(this.player);
         this.food_models.forEach( food_model => food_model.collide());
+        this.platform_models.forEach( platform => platform.collide() );
     }
 }
 

@@ -1,5 +1,5 @@
 import RootModel from './root_model';
-import TileSheet from './tilesheet';
+import TileSheet from '../tilesheet';
 
 
 class UserModel extends RootModel {
@@ -10,8 +10,8 @@ class UserModel extends RootModel {
         this.height = 16;
         this.delta_x = 0;
         this.delta_y = 0;
-        this.screenX = 0;
-        this.screenY = 0;
+        this.screen_x = 0;
+        this.screen_y = 0;
 
         this.jumping = true;
         this.doubleJumping = true;
@@ -37,13 +37,13 @@ class UserModel extends RootModel {
             "jump-left": [{ sx: 328, sy: 2, width: 20, height: 20 }],
             "move-left": [
                 { sx: 37, sy: 10, width: 20, height: 20 },
-                { sx: 70, sy: 12, width: 20, height: 18 }
+                { sx: 70, sy: 12, width: 20, height: 20 }
             ],
             "idle-right": [{ sx: 932, sy: 10, width: 20, height: 20 }],
             "jump-right": [{ sx: 709, sy: 2, width: 20, height: 20 }],
             "move-right": [
                 { sx: 933, sy: 10, width: 20, height: 20 },
-                { sx: 901, sy: 12, width: 20, height: 18 }
+                { sx: 901, sy: 12, width: 20, height: 20 }
             ],
         }
 
@@ -72,9 +72,13 @@ class UserModel extends RootModel {
                 this.delta_y = -4;
                 this.delta_x = -6;
                 this.type = null;
+            } else if (this.type === 'platform') {
+                this.pos_y -= 16;
+                this.delta_y = -6;
             }
-            else
+            else{
                 this.delta_y = -8;
+            }
         }
     }
 
@@ -147,7 +151,6 @@ class UserModel extends RootModel {
         if (this.top() < tile_y && this.old_top() >= tile_y) {
             this.pos_y = tile_y;
             this.delta_y = 0;
-            //this.delta_x = 0;
             this.type = null;
             return true;
         }
@@ -220,6 +223,7 @@ class UserModel extends RootModel {
     animate(ctx) {
         let frame;
 
+        //console.log(this.pos_y);
         if (this.delta_x > 0.15 && this.delta_y === 0) {
             if (this.prev_direction === 'LEFT') {
                 this.accumulated_time = 0;
@@ -233,7 +237,7 @@ class UserModel extends RootModel {
             }
 
             ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, 
-                Math.floor(this.screenX - this.width / 2), Math.floor(this.screenY - this.height / 2) + 4, this.width + 4, this.height + 4);
+                Math.floor(this.screen_x - this.width / 2), Math.floor(this.screen_y - this.height / 2) + 5, this.width + 4, this.height + 4);
             this.updateTime()
 
         } else if (this.delta_x < -0.15 && this.delta_y === 0) {
@@ -249,29 +253,29 @@ class UserModel extends RootModel {
             }
 
             ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, 
-                Math.floor(this.screenX - this.width / 2), Math.floor(this.screenY - this.height / 2) + 4, this.width + 4, this.height + 4);
+                Math.floor(this.screen_x - this.width / 2), Math.floor(this.screen_y - this.height / 2) + 5, this.width + 4, this.height + 4);
 
             this.updateTime()
         } else if (this.delta_y < 0) {
             if (this.prev_direction === 'RIGHT') {
                 frame = this.frame_sets['jump-right'][0];
                 ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, 
-                    Math.round(this.screenX - this.width / 2), Math.round(this.screenY - this.height / 2) + 4, this.width + 4, this.height + 4);
+                    Math.round(this.screen_x - this.width / 2), Math.round(this.screen_y - this.height / 2) + 4, this.width + 4, this.height + 4);
             } else {
                 frame = this.frame_sets['jump-left'][0];
                 ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, 
-                    Math.round(this.screenX - this.width / 2), Math.round(this.screenY - this.height / 2) + 4, this.width + 4, this.height + 4);
+                    Math.round(this.screen_x - this.width / 2), Math.round(this.screen_y - this.height / 2) + 4, this.width + 4, this.height + 4);
             }
 
         } else {
             if (this.prev_direction === 'RIGHT') {
                 frame = this.frame_sets['idle-right'][0];
                 ctx.drawImage(this.playerSpriteRight.image, frame.sx, frame.sy, frame.width, frame.height, 
-                    Math.round(this.screenX - this.width / 2), Math.round(this.screenY - this.height / 2) + 4, this.width + 4, this.height + 4);
+                    Math.round(this.screen_x - this.width / 2), Math.round(this.screen_y - this.height / 2) + 4, this.width + 4, this.height + 4);
             } else {
                 frame = this.frame_sets['idle-left'][0];
                 ctx.drawImage(this.playerSpriteLeft.image, frame.sx, frame.sy, frame.width, frame.height, 
-                    Math.round(this.screenX - this.width / 2), Math.round(this.screenY - this.height / 2) + 4, this.width + 4, this.height + 4);
+                    Math.round(this.screen_x - this.width / 2), Math.round(this.screen_y - this.height / 2) + 4, this.width + 4, this.height + 4);
             }
         }
     }

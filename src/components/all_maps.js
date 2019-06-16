@@ -8,7 +8,11 @@ import Map from './map';
 const maps = () => {
     return [
         new Map(map1.layers[0].data, map1_asset.layers[0].data, map1_collision.layers[0].data,
-            0, 0,
+            0, 0, 76, 38,
+            [
+                {x: 9, y: 4, traversal: { type: 'HORIZONTAL', distance: 45 * 16}}
+            ],
+            
             [
                 { x: 0, y: 20 },
                 { x: 9, y: 30 },

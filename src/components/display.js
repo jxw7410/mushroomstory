@@ -1,5 +1,5 @@
 import TileSheet from './tilesheet';
-
+import ViewPort from './viewport';
 
 class Display {
     constructor() {
@@ -7,34 +7,29 @@ class Display {
         this.canvas = document.getElementById('myCanvas');
         this.ctx = this.canvas.getContext('2d');
 
-        this.tile_sheet = new TileSheet(16, 16);
+        this.mainSheet = new TileSheet(16, 16);
         this.background = new TileSheet(0, 0);
         this.cloudSprite = new TileSheet(0, 0);
         this.cloud_pos_x = 0;
 
-        this.ViewPort = {
-            x: 0,
-            y: 0,
-            width: 608,
-            height: 304,
-            max_x: 76 * 16 - 608,
-            max_y: 38 * 16 - 304,
-            pairs: {}
-        }
+
+        this.viewPort = new ViewPort();
     }
 
     drawMap(map, columns, player) {
-        this.scrollTo(player);
+        const t_size = this.mainSheet.tile_size;
 
-        let x_min = Math.floor(this.ViewPort.x / 16);
-        let y_min = Math.floor(this.ViewPort.y / 16);
-        let x_max = Math.ceil((this.ViewPort.x + this.ViewPort.width) / 16);
-        let y_max = Math.ceil((this.ViewPort.y + this.ViewPort.height) / 16);
+        this.viewPort.focus(player);
 
-        let offset_x = Math.floor(-this.ViewPort.x + x_min * 16);
-        let offset_y = Math.floor(-this.ViewPort.y + y_min * 16);
+        let x_min = Math.floor(this.viewPort.x / t_size);
+        let y_min = Math.floor(this.viewPort.y / t_size);
+        let x_max = Math.ceil((this.viewPort.x + this.viewPort.width) / t_size);
+        let y_max = Math.ceil((this.viewPort.y + this.viewPort.height) / t_size);
+
+        let offset_x = Math.floor(-this.viewPort.x + x_min * t_size);
+        let offset_y = Math.floor(-this.viewPort.y + y_min * t_size);
    
-        this.ViewPort.pairs = {};
+        this.viewPort.indices = {};
 
         for (let x = x_min; x < x_max; x++) {
             for (let y = y_min; y < y_max; y++) {
@@ -42,70 +37,62 @@ class Display {
                 let value = map[index] - 1;
 
                 //this extracts the sprites from the sprite sheet
-                let source_x = (value % this.tile_sheet.columns) * this.tile_sheet.tile_size;
-                let source_y = Math.floor(value / this.tile_sheet.columns) * this.tile_sheet.tile_size;
+                let source_x = (value % this.mainSheet.columns) * t_size;
+                let source_y = Math.floor(value / this.mainSheet.columns) * t_size;
 
                 //This maps the sprite to the view port
-                let destination_x = Math.floor((x - x_min) * 16 + offset_x);
-                let destination_y = Math.floor((y - y_min) * 16 + offset_y);
+                let destination_x = Math.floor((x - x_min) * t_size + offset_x);
+                let destination_y = Math.floor((y - y_min) * t_size + offset_y);
                 
 
                 //This important for animation since this memorizes what indices will render on our view port;
-                this.ViewPort.pairs[index] = [ destination_x, destination_y];
+                this.viewPort.indices[index] = [ destination_x, destination_y];
 
-                this.ctx.drawImage(this.tile_sheet.image,
-                    source_x, source_y, this.tile_sheet.tile_size,
-                    this.tile_sheet.tile_size, destination_x, destination_y,
-                    this.tile_sheet.tile_size, this.tile_sheet.tile_size);
+                this.ctx.drawImage(this.mainSheet.image,
+                    source_x, source_y, t_size,
+                    t_size, destination_x, destination_y,
+                    t_size, t_size);
             }
         }
     }
 
-    scrollTo(object){
 
-        object.screenX = this.ViewPort.width / 2;
-        object.screenY = this.ViewPort.height / 2;
+    updateViewPort(map){
+        this.viewPort.max_x = map.columns * map.tile_size - this.viewPort.width;
+        this.viewPort.max_y = map.rows * map.tile_size - this.viewPort.height;
 
-        this.ViewPort.x = object.pos_x - this.ViewPort.width * 0.5;
-        this.ViewPort.y = object.pos_y -  this.ViewPort.height * 0.5;
-
-        this.ViewPort.x = Math.max(0, Math.min(this.ViewPort.x, this.ViewPort.max_x));
-        this.ViewPort.y = Math.max(0, Math.min(this.ViewPort.y, this.ViewPort.max_y));
-
-        if ( object.pos_x < this.ViewPort.width / 2  ||
-            object.pos_x > this.ViewPort.max_x + this.ViewPort.width / 2) {
-                object.screenX = object.pos_x - this.ViewPort.x;
-           }
-
-        if (object.pos_y < this.ViewPort.height / 2 ||
-            object.pos_y > this.ViewPort.max_y + this.ViewPort.height / 2) {
-            object.screenY = object.pos_y - this.ViewPort.y;
-        }
     }
 
-    drawPlayer(player) {
 
+    drawPlayer(player) {
         player.animate(this.ctx);
     }
 
-    drawFood(food_models) {
+    drawFood(food_models, map) {
         food_models.forEach(food_model => {
             if (food_model.status === 1) {
-                const index = (food_model.pos_y * 76 + food_model.pos_x )/ 16;
-                if(this.ViewPort.pairs[index])
-                    food_model.animate(this.ctx, this.ViewPort.pairs[index][0], this.ViewPort.pairs[index][1]);
-
+                const index = (food_model.pos_y * map.columns + food_model.pos_x )/ map.tile_size;
+                if(this.viewPort.indices[index])
+                    food_model.animate(this.ctx, this.viewPort.indices[index][0], this.viewPort.indices[index][1]);
+                else 
+                    food_model.animate(this.ctx);
             }
+        })
+    }
+
+    drawPlatform(platforms, map){
+        platforms.forEach(platform => {
+            const index = Math.floor(platform.pos_y * map.columns / map.tile_size) + Math.floor(platform.pos_x / map.tile_size);
+            if (this.viewPort.indices[index])
+                platform.animate(this.ctx, this.viewPort.indices[index][0], this.viewPort.indices[index][1])
+            else
+                platform.animate(this.ctx);
         })
     }
 
     drawClouds() {
         this.ctx.drawImage(this.cloudSprite.image, 0 - this.cloud_pos_x, 0, this.canvas.width * 2, this.canvas.height * 2);
-
         this.ctx.drawImage(this.cloudSprite.image, this.canvas.width * 2 - this.cloud_pos_x, 0, this.canvas.width * 2, this.canvas.height * 2);
-
-
-
         this.cloud_pos_x += 0.5;
 
         if (this.cloud_pos_x === this.canvas.width * 2)
