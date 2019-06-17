@@ -133,7 +133,7 @@ class Game {
         if(this.game_state !== 'START' && !this.engine._stop){ 
             if(this.game_state === 'END'){
                 this.unmute();
-                document.getElementById('mute-button').innerHTML = 'mute';
+                document.getElementById('mute-button').innerHTML = 'Mute';
             }
             this.world.map_index = 0;
             this.player.points = 0;
