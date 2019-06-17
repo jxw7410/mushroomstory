@@ -131,9 +131,10 @@ class Game {
 
     handleReset(e){
         if(this.game_state !== 'START' && !this.engine._stop){ 
-            if(this.game_state === 'END')
+            if(this.game_state === 'END'){
                 this.unmute();
-        
+                document.getElementById('mute-button').innerHTML = 'mute';
+            }
             this.world.map_index = 0;
             this.player.points = 0;
             this.player.delta_x = 0;

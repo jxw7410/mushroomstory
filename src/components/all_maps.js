@@ -6,6 +6,14 @@ import * as map2 from '../resources/map2.json';
 import * as map2_collision from '../resources/map2_collide.json';
 import * as map2_asset from '../resources/map2_assets.json';
 
+import * as map3 from '../resources/map3.json';
+import * as map3_collision from '../resources/map3_collide.json';
+import * as map3_asset from '../resources/map3_assets.json';
+
+
+import * as map4 from '../resources/map4.json';
+import * as map4_collision from '../resources/map4_collide.json';
+
 import Map from './map';
 
 
@@ -84,6 +92,66 @@ const maps = () => {
                 { x: 122, y: 23 },
                 { x: 124, y: 23 },
             ]),
+
+
+            new Map(map3.layers[0].data, map3_asset.layers[0].data, map3_collision.layers[0].data, 
+                    0, 143, 38, 152, 
+                    [],
+                    [
+                        { x: 13, y: 138, delta: 0.5, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 133, delta: 2, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 128, delta: 1, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 0, y: 120, delta: 1, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 0, y: 115, delta: 2, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 0, y: 110, delta: 4, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 100, delta: 0.5, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 95, delta: 2, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 90, delta: 1, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 85, delta: 4, traversal: { type: 'HORIZONTAL', distance: 21 * 16 } },
+                        { x: 13, y: 74, delta: 2, traversal: { type: 'HORIZONTAL', distance: 8 * 16 } },
+                        { x: 13, y: 69, delta: 2, traversal: { type: 'HORIZONTAL', distance: 8 * 16 } },
+                        { x: 13, y: 64, delta: 4, traversal: { type: 'HORIZONTAL', distance: 8 * 16 } },
+                        { x: 13, y: 59, delta: 1, traversal: { type: 'HORIZONTAL', distance: 8 * 16 } },
+                        { x: 13, y: 54, delta: 2, traversal: { type: 'HORIZONTAL', distance: 8 * 16 } },
+                        { x: 14, y: 43, delta: 4, traversal: { type: 'HORIZONTAL', distance: 7 * 16 } },
+                        { x: 14, y: 38, delta: 2, traversal: { type: 'HORIZONTAL', distance: 7 * 16 } },
+                        { x: 14, y: 33, delta: 4, traversal: { type: 'HORIZONTAL', distance: 7 * 16 } },
+                        { x: 14, y: 28, delta: 4, traversal: { type: 'HORIZONTAL', distance: 7 * 16 } },
+                        { x: 14, y: 23, delta: 2, traversal: { type: 'HORIZONTAL', distance: 7 * 16 } },
+                        { x: 14, y: 18, delta: 4, traversal: { type: 'HORIZONTAL', distance: 7 * 16 } },
+                        { x: 9, y: 8, delta: 1, traversal: { type: 'HORIZONTAL', distance: 15 * 16 } },
+                    ],
+                    [
+                        { x: 1, y: 124},
+                        { x: 5, y: 124 },
+                        { x: 9, y: 124 },
+                        { x: 13, y: 124 },
+                        { x: 21, y: 105 },
+                        { x: 25, y: 105 },
+                        { x: 29, y: 105 },
+                        { x: 33, y: 105 },
+                        { x: 37, y: 105 },
+                        { x: 0, y: 78 },
+                        { x: 4, y: 78 },
+                        { x: 8, y: 78 },
+                        { x: 12, y: 78 },
+                        { x: 25, y: 46 },
+                        { x: 29, y: 46 },
+                        { x: 33, y: 46 },
+                        { x: 37, y: 46 },
+                        { x: 0, y: 12 },
+                        { x: 4, y: 12 },
+                        { x: 8, y: 12 },
+                    ]   
+                
+                ),
+
+            new Map(map4.layers[0].data, [], map4_collision.layers[0].data,
+                0, 14, 38, 19, [],
+                [],
+                []
+                )
+
 
         
     ]
