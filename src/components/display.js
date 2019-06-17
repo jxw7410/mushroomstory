@@ -121,7 +121,7 @@ class Display {
     }
 
     drawStartText(){
-        this.ctx.font = "30px Comic Sans MS";
+        this.ctx.font = "30px sans serif";
         this.ctx.fillStyle = "orange";
         this.ctx.textAlign = "center";
         this.ctx.fillText("Welcome to MushroomStory", this.canvas.width / 2, this.canvas.height / 2);
@@ -129,7 +129,7 @@ class Display {
     }
 
     drawEndText() {
-        this.ctx.font = "30px Comic Sans MS";
+        this.ctx.font = "30px sans serif";
         this.ctx.fillStyle = "orange";
         this.ctx.textAlign = "center";
         this.ctx.fillText("The End.", this.canvas.width / 2, this.canvas.height / 2);
