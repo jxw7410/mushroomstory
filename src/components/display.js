@@ -1,5 +1,6 @@
 import TileSheet from './tilesheet';
 import ViewPort from './viewport';
+import maps from './all_maps';
 
 class Display {
     constructor() {
@@ -8,10 +9,12 @@ class Display {
         this.ctx = this.canvas.getContext('2d');
 
         this.mainSheet = new TileSheet(16, 16);
+        this.startBackground = new TileSheet(0, 0);
         this.background = new TileSheet(0, 0);
         this.cloudSprite = new TileSheet(0, 0);
         this.cloud_pos_x = 0;
 
+        this.iteration = 0;
 
         this.viewPort = new ViewPort();
     }
@@ -56,7 +59,6 @@ class Display {
         }
     }
 
-
     updateViewPort(map){
         this.viewPort.max_x = map.columns * map.tile_size - this.viewPort.width;
         this.viewPort.max_y = map.rows * map.tile_size - this.viewPort.height;
@@ -67,6 +69,8 @@ class Display {
     drawPlayer(player) {
         player.animate(this.ctx);
     }
+
+
 
     drawFood(food_models, map) {
         food_models.forEach(food_model => {
@@ -81,10 +85,14 @@ class Display {
     }
 
     drawPlatform(platforms, map){
+        let index; 
+
         platforms.forEach(platform => {
-            const index = Math.floor(platform.pos_y * map.columns / map.tile_size) + Math.floor(platform.pos_x / map.tile_size);
-            if (this.viewPort.indices[index])
+            index = Math.floor(platform.pos_y * map.columns / map.tile_size) + Math.floor(platform.pos_x / map.tile_size);
+          
+            if (this.viewPort.indices[index]){
                 platform.animate(this.ctx, this.viewPort.indices[index][0], this.viewPort.indices[index][1])
+            }
             else
                 platform.animate(this.ctx);
         })
@@ -106,7 +114,29 @@ class Display {
     drawBackground() {
         this.ctx.drawImage(this.background.image, 0, 0, this.canvas.width * 2, this.canvas.height * 2);
     }
+
+
+    drawStartBackground() {
+        this.ctx.drawImage(this.startBackground.image, 0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    drawStartText(){
+        this.ctx.font = "30px Comic Sans MS";
+        this.ctx.fillStyle = "orange";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText("Welcome to MushroomStory", this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.fillText("Please Press Enter to Continue", this.canvas.width / 2, this.canvas.height / 2 + 30);
+    }
+
+    drawEndText() {
+        this.ctx.font = "30px Comic Sans MS";
+        this.ctx.fillStyle = "orange";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText("The End.", this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.fillText("Thanks for playing!", this.canvas.width / 2, this.canvas.height / 2 + 30);
+    }
 }
+
 
 
 export default Display;

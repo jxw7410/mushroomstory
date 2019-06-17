@@ -12,22 +12,15 @@ class UserModel extends RootModel {
         this.delta_y = 0;
         this.screen_x = 0;
         this.screen_y = 0;
-
+        this.init_x = 0;
+        this.init_y = 0;
         this.jumping = true;
         this.doubleJumping = true;
         this.type = null;
-
-        this.moveLeft = this.moveLeft.bind(this);
-        this.moveRight = this.moveRight.bind(this);
-        this.jump = this.jump.bind(this);
-        this.doubleJump = this.doubleJump.bind(this);
-        this.handleCollisionWithWorld = this.handleCollisionWithWorld.bind(this);
-
-
         this.prev_direction = 'RIGHT';
         this.x_frames = 0;
-
-
+        this.points = 0;
+        this.sounds = null;
         this.playerSpriteLeft = new TileSheet(32, 30);
         this.playerSpriteRight = new TileSheet(32, 30);
 
@@ -53,11 +46,22 @@ class UserModel extends RootModel {
 
     moveLeft() {
         this.delta_x = -2.5;
+        if (!this.delta_y){
+            this.sounds.walk.play();
+        } else if (this.type === 'slide-right'){
+            //debugger
+            this.sounds.walk.play();
+        }
         //this.pos_x -= 4;
     }
 
     moveRight() {
         this.delta_x = 2.5;
+        if (!this.delta_y) {
+            this.sounds.walk.play();
+        } else if (this.type === 'slide-left') {
+            this.sounds.walk.play();
+        }
         //this.pos_x += 4;
     }
 
@@ -75,24 +79,25 @@ class UserModel extends RootModel {
             } else if (this.type === 'platform') {
                 this.pos_y -= 16;
                 this.delta_y = -6;
+                this.type = null;
             }
             else{
                 this.delta_y = -8;
             }
+            this.sounds.jump.play();
         }
     }
 
     doubleJump() {
         if (this.jumping && !this.doubleJumping) {
-            //debugger
             this.doubleJumping = true;
             this.delta_y = -8;
+            this.sounds.jump.play();
         }
     }
 
     handleCollisionWithWorld(type, world) {
         switch (type) {
-            //Hitting the bound of the world
             case '1':
                 this.pos_x = 0;
                 this.delta_x = 0;
@@ -123,12 +128,14 @@ class UserModel extends RootModel {
             case '3':
                 this.jumping = false;
                 this.doubleJumping = false;
-                this.pos_y = world.height - this.height;
                 this.delta_y = 0;
+                this.pos_x = this.init_x;
+                this.pos_y = this.init_y;
                 break;
             case '4': // Hit your head
                 this.delta_y = 0;
                 this.pos_y = 0;
+                break;
             default:
                 break;
         }
@@ -136,14 +143,13 @@ class UserModel extends RootModel {
 
     handleCollideTop(tile_y) {
         if (this.bottom() > tile_y && this.old_bottom() <= tile_y) {
-            this.old_pos_y = this.pos_y;
             this.pos_y = (tile_y-0.01) - this.height;
             this.delta_y = 0;
             this.jumping = false;
             this.doubleJumping = false;
             this.type = null;
             return true;
-        }
+        } 
         return false;
     }
 
@@ -214,7 +220,10 @@ class UserModel extends RootModel {
 
     }
 
-
+    updatePoints(points){
+        this.points += points;
+        document.getElementById('points').innerText = this.points;
+    }
     updateTime() {
         this.accumulated_time += 10;
         this.accumulated_time = this.accumulated_time === 120 ? 0 : this.accumulated_time;
@@ -285,12 +294,13 @@ class UserModel extends RootModel {
         this.old_pos_x = this.pos_x;
         this.old_pos_y = this.pos_y;
 
+    
         this.delta_y += gravity;
 
         this.pos_x += this.delta_x;
         this.pos_y += this.delta_y;
         this.delta_x *= friction;
-        this.delta_y *= friction + 0.395;
+        this.delta_y *= 0.982;
     }
 
 

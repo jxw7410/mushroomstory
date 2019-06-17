@@ -1,0 +1,175 @@
+
+html{
+    width: 100%;
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    background-image: url('../images//maplemushrooms.jpg');
+    display:grid;
+    grid-template-columns: auto 900px auto;
+    margin: 0;
+
+}
+
+#canvas-section{
+    grid-column: 2/ 3;
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:  center;
+}
+
+#canvas-section > h1 {
+    margin: 30px 0;
+    font-family: sans-serif;
+    font-size: 60px;
+    color: orange;
+}
+#myCanvas {
+    background: lightgray;
+    display: block;
+    margin: 0 auto;
+    width: 900px;
+    height: 700px;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+#player-screen{
+    position: relative;
+}
+
+#pause-screen{
+    position: absolute;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background: black;
+    color: white;
+    height: 100%;
+    width: 100%;
+}
+
+#timer-points-section{
+    height: 100%;
+    grid-column: 1 / 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
+#timer-points-section > div{
+    height: 700px;
+    width: 300px;
+    margin-top: 128px;
+}
+
+
+#timer-section{
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+#timer-section > span{
+    margin: 0 10px;
+}
+
+#point-section{
+    margin-top: 50px;
+    background: white;
+    border-radius: 10px;
+    width: 100%;
+    height: 100px;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+#point-section > span{
+      margin: 0 10px;
+}
+
+#points{
+    color: green;
+}
+#instruction-section{
+    margin-top: 50px;
+    width: 100%;
+    height: 400px;
+    background: white;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#instruction-section > h2 {
+    font-size: 20px;
+    font-family: sans-serif;
+    margin: 10px;
+
+}
+#instruction-section > article{
+    display:flex;
+    flex-direction: column;
+    margin: 10px;
+    font-size: 16px;
+}
+
+#instruction-section > article > span{
+    margin: 5px;
+    font-family: sans-serif;
+}
+
+
+#user-controls-section{
+    grid-column: 3 /4 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-controls-section > div{
+    width: 300px;
+    height: 700px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 128px;
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#user-controls-section > div > button {
+    margin: 20px 0;
+    width: 60%;
+    height: 50px;
+    font-size: 25px;
+    color: white;
+    background: rgb(90, 90, 252);
+    border-radius: 5px;
+}
+
+#user-controls-section > div > button:active{
+    outline: none;
+}
+
+#user-controls-section > div > button:focus{
+    outline: none;
+}
+

@@ -1,14 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>MushroomStory</title>
-    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <script src='./src/bundle.js'></script>
 </head>
+
 <body>
-    <div>
-        <canvas id='myCanvas' width="608" height='304'></canvas>
+    <div id='timer-points-section'>
+        <div>
+            <div id='timer-section'>
+                <span>Time:</span> 
+                <span id='time'>00:00:00</span>
+            </div>
+            <div id='point-section'>
+                <span>Points:</span>
+                <span id='points'>0</span>
+            </div>
+            
+            <div id='instruction-section'>
+                <h2>Instruction</h2>
+                <article>
+                    <span> Press Left or Right arrow to move accordingly</span>
+                    <span> Press space to Jump </span>
+                    <span> Press A while jumping for 2nd jump</span>
+                    <span> You can jump and slide against jagged walls</span>
+                    <span> 
+                        The point of the game? Try to collect as many 
+                        items as possible, and as fast as possible.
+                        You can move on to the next stage by going into a sign post.
+                    </span>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div id='canvas-section'>
+        <h1>MushroomStory</h1>
+        <div id='player-screen'>
+            <div id='pause-screen'><span>PAUSE</span></div>
+            <canvas id='myCanvas' width="608" height='304'></canvas>
+        </div>
+
+        <nav id='link'>
+
+        </nav>
+    </div>
+    <div id='user-controls-section'>
+        <div>
+            <button id='pause-button'>Pause</button>
+            <button id='mute-button'>Mute</button>
+            <button id='reset-button'>Reset</button>
+        </div>
     </div>
 </body>
+
 </html>

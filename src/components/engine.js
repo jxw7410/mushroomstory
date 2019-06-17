@@ -10,11 +10,11 @@ class Engine {
         this.RAF = null;
         this.run = this.run.bind(this);
         this.timeout = null;
-        this.stop = false;  
+        this._stop = false;  
     }
 
     run() {
-        if (!this.stop){
+        if (!this._stop){
             this.update();
             this.render();
             this.RAF = window.requestAnimationFrame(this.run);
@@ -22,11 +22,11 @@ class Engine {
     }
 
     stop(){
-        this.stop = true;
+        this._stop = true;
     }
 
     resume(){
-        this.stop = false;
+        this._stop = false;
     }
 }
 

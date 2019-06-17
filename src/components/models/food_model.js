@@ -2,20 +2,21 @@ import RootModel from "./root_model";
 import {collisionDetection} from '../../utils/util_tools'
 
 class FoodModel extends RootModel{
-    constructor(pos_x, pos_y, foodSpriteSheet, player){
+    constructor(pos_x, pos_y, foodSpriteSheet, sounds, player, points = 100){
         super(pos_x, pos_y);
 
         this.player = player;
         this.width = 16;
         this.height = 16;
+        this.sounds = sounds;
 
         this.status = 1;
-    
+        this.points = points;
 
         this.animation_count = 4;
         this.delta_y = 1;
         this.accumulated_time = 0;
-    
+        
         this.foodSpriteSheet = foodSpriteSheet;
         this.frame_set = { sx: 64, sy: 32 }
 
@@ -47,8 +48,10 @@ class FoodModel extends RootModel{
     }   
 
     collide(){
-        if(collisionDetection(this, this.player)){
+        if(collisionDetection(this, this.player) && this.status !== 0){
             this.status = 0;
+            this.player.updatePoints(this.points);
+            this.sounds.bubble.play(); 
         }
     }
 }
