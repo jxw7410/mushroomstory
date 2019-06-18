@@ -181,8 +181,10 @@ class Game {
             this.world.foodSpriteSheet.image.src = './assets/images/Food.png';
             this.world.platformSheet = this.display.mainSheet;
 
-            this.sounds.bgm = new Audio("./assets/sounds/stardewvalley.mp3");
-            this.sounds.jump = new Audio("./assets/sounds/jumping.wav");
+            this.sounds.bgm = new Audio("./assets/sounds/maplestory.mp3");
+            this.sounds.jump = []
+            for(let i = 0; i < 5; i++ )
+                this.sounds.jump.push(new Audio("./assets/sounds/jumping.wav"));
             this.sounds.walk = new Audio("./assets/sounds/walking.wav");
             this.sounds.slide = new Audio("./assets/sounds/gravel.wav");
             this.sounds.bubble = new Audio("./assets/sounds/bubble.mp3")

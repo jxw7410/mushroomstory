@@ -21,6 +21,7 @@ class UserModel extends RootModel {
         this.x_frames = 0;
         this.points = 0;
         this.sounds = null;
+        this.jumpSoundIndex = 0;
         this.playerSpriteLeft = new TileSheet(32, 30);
         this.playerSpriteRight = new TileSheet(32, 30);
 
@@ -49,10 +50,9 @@ class UserModel extends RootModel {
         if (!this.delta_y){
             this.sounds.walk.play();
         } else if (this.type === 'slide-right'){
-            //debugger
             this.sounds.walk.play();
         }
-        //this.pos_x -= 4;
+
     }
 
     moveRight() {
@@ -62,7 +62,6 @@ class UserModel extends RootModel {
         } else if (this.type === 'slide-left') {
             this.sounds.walk.play();
         }
-        //this.pos_x += 4;
     }
 
     jump() {
@@ -84,7 +83,9 @@ class UserModel extends RootModel {
             else{
                 this.delta_y = -8;
             }
-            this.sounds.jump.play();
+            this.sounds.jump[this.jumpSoundIndex].play();
+            this.jumpSoundIndex++;
+            this.jumpSoundIndex = this.jumpSoundIndex === 5 ? 0 : this.jumpSoundIndex;
         }
     }
 
@@ -94,7 +95,9 @@ class UserModel extends RootModel {
             !this.type) {
             this.doubleJumping = true;
             this.delta_y = -8;
-            this.sounds.jump.play();
+            this.sounds.jump[this.jumpSoundIndex].play();
+            this.jumpSoundIndex++;
+            this.jumpSoundIndex = this.jumpSoundIndex === 5 ? 0 : this.jumpSoundIndex;
         }
     }
 
