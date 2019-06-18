@@ -69,11 +69,14 @@ class Game {
             if (this.controller.rightPress)
                 this.player.moveRight();
 
-            if (this.controller.jumpPress)
-                this.player.jump();
+            if (this.controller.jumpPress){
+                if (!this.player.jumping)
+                    this.player.jump();
+                else 
+                    this.player.doubleJump();
+                this.controller.jumpPress = false;
+            }
 
-            if (this.controller.doublejumpPress)
-                this.player.doubleJump();
 
             this.world.update();
         }
@@ -99,6 +102,7 @@ class Game {
     }
 
     handleMute(e){
+        e.preventDefault();
         if (this.game_state !== 'START'){
             if (this.muted){
                 this.unmute();
@@ -112,6 +116,7 @@ class Game {
     }
 
     handlePause(e){
+        e.preventDefault();
         if (this.game_state === 'PLAY'){
             if (this.engine._stop){
                 this.engine.resume();
@@ -130,6 +135,7 @@ class Game {
     }
 
     handleReset(e){
+        e.preventDefault();
         if(this.game_state !== 'START' && !this.engine._stop){ 
             if(this.game_state === 'END'){
                 this.unmute();
@@ -145,6 +151,7 @@ class Game {
             this.timer.start();
             this.world.load();
             this.game_state = 'PLAY';
+            //debugger
         }
         e.target.blur();
     }

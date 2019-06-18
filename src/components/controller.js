@@ -3,14 +3,16 @@ class Controller {
         this.game = game;
         this.leftPress = false;
         this.rightPress = false;
-        this.jumpPress = false;
         this.doublejumpPress = false;
-
         this.handleKeyPress = this.handleKeyPress.bind(this);
+
+        this.jumpPress = false;
+        this.jumpActive = false;
     }
 
     controlSetStart(e){
         //debugger
+        e.preventDefault();
         if (e.key === 'Enter' || e.keyCode === '13'){
             this.game.game_state = 'PLAY';
             this.game.sounds.bgm.play();
@@ -18,6 +20,7 @@ class Controller {
     }
 
     controlSetPlay(e){
+        e.preventDefault();
         if (e.key === 'ArrowLeft' || e.keyCode === '37')
             this.leftPress = e.type === 'keydown' ? true : false;
         else if (e.key === 'ArrowRight' || e.key_code === '39')
@@ -25,11 +28,18 @@ class Controller {
         else if (e.key === 'a' || e.keyCode === '65')
             this.doublejumpPress = e.type === 'keydown' ? true : false;
         else if (e.key === " " || e.keyCode === '32') {
-            this.jumpPress = e.type === 'keydown' ? true : false;
+            const tryJump = e.type === 'keydown' ? true : false;
+            
+            if (this.jumpActive !== tryJump){
+                this.jumpPress = tryJump
+            }
+
+            this.jumpActive = tryJump;
         }
     }
 
     handleKeyPress(e){
+        
         switch(this.game.game_state){
             case 'START':
                 this.controlSetStart(e);

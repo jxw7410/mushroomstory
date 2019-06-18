@@ -14,53 +14,65 @@
     <div id='timer-points-section'>
         <div>
             <div id='timer-section'>
-                <span>Time:</span> 
+                <span>Time:</span>
                 <span id='time'>00:00:00</span>
             </div>
             <div id='point-section'>
                 <span>Points:</span>
                 <span id='points'>0</span>
             </div>
-            
+
             <div id='instruction-section'>
                 <h2>Instruction</h2>
                 <article>
-                    <span> Press Left or Right arrow to move accordingly</span>
-                    <span> Press space to Jump </span>
-                    <span> Press A while jumping for 2nd jump</span>
-                    <span> You can jump and slide against jagged walls</span>
-                    <span> 
-                        The point of the game? Try to collect as many 
-                        items as possible, and as fast as possible.
-                        You can move on to the next stage by going into a sign post.
-                    </span>
+                    <ul>
+                        <li> <span>Press Left or Right arrow to move accordingly.</span></li>
+                        <li> <span>Press space to Jump.</span> </li>
+                        <li> <span>Press A while jumping for 2nd Jump.</span></li>
+                        <li> <span>You can jump and slide against jagged walls.</span></li>
+                        <li>
+                            <span>
+                                The point of the game? Try to collect as many
+                                items as possible, and as fast as possible.
+                                You can move on to the next stage by going into a sign post.
+                            </span>
+                        </li>
+                    </ul>
                 </article>
             </div>
         </div>
     </div>
     <div id='canvas-section'>
-        <h1>MushroomStory</h1>
+        <div id='title'>
+            <img src='./assets/images/maplestory.png' />
+            <h1>MushroomStory</h1>
+        </div>
         <div id='player-screen'>
             <div id='pause-screen'><span>PAUSE</span></div>
             <canvas id='myCanvas' width="608" height='304'></canvas>
         </div>
 
         <nav id='personal-links'>
-            <a id='git-link' href='https://github.com/jxw7410/jxw7410.github.io'><i class="fab fa-github"></i><span>Git</span></span></a>
+            <a id='git-link' href='https://github.com/jxw7410/jxw7410.github.io'><i
+                    class="fab fa-github"></i><span>Git</span></span></a>
         </nav>
     </div>
     <div id='user-controls-section'>
         <div>
-            <button id='pause-button'>Pause</button>
-            <button id='mute-button'>Mute</button>
-            <button id='reset-button'>Reset</button>
-            <div id='not-important'>
-                <span>
-                    Why is the mushroom collecting beer?
-                    Have you played Maplestory? I commited atrocities! They'll hang me!
-                    Do you know how many mushrooms I'd grinded for exp? 
-                    Good times tho.
-                </span>
+            <div>
+                <div id='button-grids'>
+                    <button id='pause-button'>Pause</button>
+                    <button id='mute-button'>Mute</button>
+                    <button id='reset-button'>Reset</button>
+                </div>
+                <div id='not-important'>
+                    <span>
+                        Why is the mushroom collecting beer?
+                        Have you played Maplestory? I commited atrocities! They'll hang me!
+                        Do you know how many mushrooms I'd grinded for exp?
+                        Good times tho.
+                    </span>
+                </div>
             </div>
         </div>
     </div>

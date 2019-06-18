@@ -1,6 +1,5 @@
 import TileSheet from './tilesheet';
 import ViewPort from './viewport';
-import maps from './all_maps';
 
 class Display {
     constructor() {
@@ -20,7 +19,7 @@ class Display {
     }
 
     drawMap(map, columns, player) {
-        const t_size = this.mainSheet.tile_size;
+        const t_size = 16;//Default size
 
         this.viewPort.focus(player);
 
@@ -54,7 +53,7 @@ class Display {
                 this.ctx.drawImage(this.mainSheet.image,
                     source_x, source_y, t_size,
                     t_size, destination_x, destination_y,
-                    t_size, t_size);
+                    t_size , t_size );
             }
         }
     }
@@ -122,6 +121,12 @@ class Display {
 
     drawStartText(){
         this.ctx.font = "30px sans serif";
+        this.ctx.fillStyle = "black";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText("Welcome to MushroomStory", this.canvas.width / 2 + 2, this.canvas.height / 2);
+        this.ctx.fillText("Please Press Enter to Continue", this.canvas.width / 2 + 2, this.canvas.height / 2 + 30);
+
+        this.ctx.font = "30px sans serif";
         this.ctx.fillStyle = "orange";
         this.ctx.textAlign = "center";
         this.ctx.fillText("Welcome to MushroomStory", this.canvas.width / 2, this.canvas.height / 2);
@@ -129,6 +134,13 @@ class Display {
     }
 
     drawEndText() {
+        this.ctx.font = "30px sans serif";
+        this.ctx.fillStyle = "black";
+        this.ctx.textAlign = "center";
+        this.ctx.fillText("The End.", this.canvas.width / 2 + 2, this.canvas.height / 2);
+        this.ctx.fillText("Thanks for playing!", this.canvas.width / 2 + 2, this.canvas.height / 2 + 30);
+
+
         this.ctx.font = "30px sans serif";
         this.ctx.fillStyle = "orange";
         this.ctx.textAlign = "center";

@@ -69,12 +69,12 @@ class UserModel extends RootModel {
         if (!this.jumping) {
             this.jumping = true;
             if (this.type === 'slide-right') {
-                this.delta_y = -4;
-                this.delta_x = 6;
+                this.delta_y = -8;
+                this.delta_x = 14;
                 this.type = null;
             } else if (this.type === 'slide-left') {
-                this.delta_y = -4;
-                this.delta_x = -6;
+                this.delta_y = -8;
+                this.delta_x = -14;
                 this.type = null;
             } else if (this.type === 'platform') {
                 this.pos_y -= 16;
@@ -89,7 +89,9 @@ class UserModel extends RootModel {
     }
 
     doubleJump() {
-        if (this.jumping && !this.doubleJumping) {
+        if (this.jumping && 
+            !this.doubleJumping &&
+            !this.type) {
             this.doubleJumping = true;
             this.delta_y = -8;
             this.sounds.jump.play();
@@ -126,6 +128,7 @@ class UserModel extends RootModel {
                 break;
 
             case '3':
+                debugger
                 this.jumping = false;
                 this.doubleJumping = false;
                 this.delta_y = 0;
@@ -143,19 +146,29 @@ class UserModel extends RootModel {
 
     handleCollideTop(tile_y) {
         if (this.bottom() > tile_y && this.old_bottom() <= tile_y) {
-            this.pos_y = (tile_y-0.01) - this.height;
-            this.delta_y = 0;
+            this.pos_y = (tile_y-0.01) - this.height;            
             this.jumping = false;
             this.doubleJumping = false;
             this.type = null;
+            if(this.delta_y > 0)
+                this.delta_y = 0;
+
             return true;
         } 
         return false;
     }
 
     handleCollideBottom(tile_y) {
-        if (this.top() < tile_y && this.old_top() >= tile_y) {
-            this.pos_y = tile_y;
+        //debugger
+        const offset = 4;
+        if (this.top() < tile_y  && this.old_top()  >= tile_y) {
+            this.pos_y = tile_y - offset;
+            this.delta_y = 0;
+            this.type = null;
+            return true;
+        } 
+        else if (this.top() < tile_y ){
+            this.pos_y = tile_y - offset;
             this.delta_y = 0;
             this.type = null;
             return true;
@@ -181,12 +194,13 @@ class UserModel extends RootModel {
             this.delta_x = 0;
             this.type = null;
             return true;
-        } else if (this.right() > tile_x) {
-            this.pos_x = (tile_x - 0.01) - this.width;
-            this.delta_x = 0;
-            this.type = null;
-            return true;
-        }
+        } 
+        // else if (this.right() > tile_x) {
+        //     this.pos_x = (tile_x - 0.01) - this.width;
+        //     this.delta_x = 0;
+        //     this.type = null;
+        //     return true;
+        // }
 
         return false;
     }

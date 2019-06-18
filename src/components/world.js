@@ -103,34 +103,34 @@ class World {
     }
 
 
-    //I like snake casing, deal with it.
-    map_collision(object){  
+
+    map_collision(player){  
         let bottom, top, left, right, value;
 
-        top = Math.floor(object.top() / this.tile_size);
-        left = Math.floor(object.left() / this.tile_size);
+        top = Math.ceil(player.top() / this.tile_size);
+        left = Math.floor(player.left() / this.tile_size);
         value = this.map.collision[top * this.columns + left]
-        this.isCollide(value, object, left * this.tile_size, top * this.tile_size);
+        this.isCollide(value, player, left * this.tile_size, top * this.tile_size);
        
 
-        top = Math.floor(object.top() / this.tile_size);
-        right = Math.floor(object.right() / this.tile_size);
+        top = Math.ceil(player.top() / this.tile_size);
+        right = Math.floor(player.right() / this.tile_size);
         value = this.map.collision[top * this.columns + right];
-        this.isCollide(value, object, right * this.tile_size, top * this.tile_size);
+        this.isCollide(value, player, right * this.tile_size, top * this.tile_size);
         
     
 
-        bottom = Math.floor(object.bottom() / this.tile_size);
-        left = Math.floor(object.left() / this.tile_size);
+        bottom = Math.floor(player.bottom() / this.tile_size);
+        left = Math.floor(player.left() / this.tile_size);
         value = this.map.collision[top * this.columns + left];
-        this.isCollide(value, object, left * this.tile_size, bottom * this.tile_size);
+        this.isCollide(value, player, left * this.tile_size, bottom * this.tile_size);
 
        
 
-        bottom = Math.floor(object.bottom() / this.tile_size);
-        right = Math.floor(object.right() / this.tile_size);
+        bottom = Math.floor(player.bottom() / this.tile_size);
+        right = Math.floor(player.right() / this.tile_size);
         value = this.map.collision[top * this.columns + right];
-        this.isCollide(value, object, right * this.tile_size, bottom * this.tile_size);
+        this.isCollide(value, player, right * this.tile_size, bottom * this.tile_size);
 
     }   
 
@@ -156,13 +156,12 @@ class World {
                 this.collideRight(object, tile_x + this.tile_size, 'SLIDE');
                 return;
             //Bottom-left
-            case 81:
+            case 46:
+                if (this.collideLeft(object, tile_x)) return;
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
-                this.collideLeft(object, tile_x);
-                return
-            
+                
             //Bottom-right
-            case 84:
+            case 48:
                 if (this.collideBottom(object, tile_y + this.tile_size)) return;
                 this.collideRight(object, tile_x + this.tile_size);
                 return;
@@ -180,7 +179,6 @@ class World {
                 this.collideTop (object, tile_y);
                 return;
             case 2:
-                //if(this.collideTop (object, tile_y)) return
                 this.collideBottom(object, tile_y + this.tile_size);
                 return
             case 3:
@@ -191,10 +189,7 @@ class World {
                 return;
             //Checkpoint
             case 31:
-                if (this.collideTop(object, tile_y)){
-                    this.updateCheckPoint();
-                    return;
-                }
+                this.updateCheckPoint();
                 return;
             case 60:
                 this.nextMap();
