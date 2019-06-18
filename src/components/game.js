@@ -85,7 +85,10 @@ class Game {
     mute() {
         if (!this.muted) {
             Object.values(this.sounds).forEach(audio => {
-                audio.muted = true;
+                if (Array.isArray(audio))
+                    audio.forEach(ele => ele.muted = true)
+                else
+                    audio.muted = true;
             });
             this.muted = true;
         }
@@ -94,7 +97,10 @@ class Game {
     unmute() {
         if (this.muted) {
             Object.values(this.sounds).forEach(audio => {
-                audio.muted = false;
+                if (Array.isArray(audio))
+                    audio.forEach(ele => ele.muted = false)
+                else
+                    audio.muted = false;
             });
             this.muted = false;
         }

@@ -83,9 +83,7 @@ class UserModel extends RootModel {
             else{
                 this.delta_y = -8;
             }
-            this.sounds.jump[this.jumpSoundIndex].play();
-            this.jumpSoundIndex++;
-            this.jumpSoundIndex = this.jumpSoundIndex === 5 ? 0 : this.jumpSoundIndex;
+            this.playSound();
         }
     }
 
@@ -95,10 +93,14 @@ class UserModel extends RootModel {
             !this.type) {
             this.doubleJumping = true;
             this.delta_y = -8;
-            this.sounds.jump[this.jumpSoundIndex].play();
-            this.jumpSoundIndex++;
-            this.jumpSoundIndex = this.jumpSoundIndex === 5 ? 0 : this.jumpSoundIndex;
+            this.playSound();
         }
+    }
+
+    playSound(){
+        this.sounds.jump[this.jumpSoundIndex].play();
+        this.jumpSoundIndex++;
+        this.jumpSoundIndex = this.jumpSoundIndex === 5 ? 0 : this.jumpSoundIndex;
     }
 
     handleCollisionWithWorld(type, world) {
@@ -162,7 +164,6 @@ class UserModel extends RootModel {
     }
 
     handleCollideBottom(tile_y) {
-        //debugger
         const offset = 4;
         if (this.top() < tile_y  && this.old_top()  >= tile_y) {
             this.pos_y = tile_y - offset;
@@ -198,13 +199,6 @@ class UserModel extends RootModel {
             this.type = null;
             return true;
         } 
-        // else if (this.right() > tile_x) {
-        //     this.pos_x = (tile_x - 0.01) - this.width;
-        //     this.delta_x = 0;
-        //     this.type = null;
-        //     return true;
-        // }
-
         return false;
     }
 
@@ -248,8 +242,6 @@ class UserModel extends RootModel {
 
     animate(ctx) {
         let frame;
-
-        //console.log(this.pos_y);
         if (this.delta_x > 0.15 && this.delta_y === 0) {
             if (this.prev_direction === 'LEFT') {
                 this.accumulated_time = 0;
