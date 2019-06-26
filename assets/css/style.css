@@ -125,9 +125,6 @@ body{
     transition: font-size 0.3s linear;
 }
 
-#timer-points-section * {
-    overflow: hidden;
-}
 
 #timer-points-section > div{
     grid-row: 2/ 3;
