@@ -218,7 +218,7 @@ body{
     font-family: futura;
     margin: 10px;
     overflow: initial;
-    transition: font-size 0.3s linear;
+    transition: all 0.3s linear;
 }
 
 #instruction-section > article{
@@ -255,7 +255,7 @@ body{
     margin: 5px 10px;
     font-size: 12px;
     font-family: fantasy;
-    transition: font-size 0.3s linear;
+    transition: all 0.3s linear;
     text-shadow: 2px 1px white;
 }
 
@@ -399,7 +399,7 @@ body{
         font-size: 10px;
         font-family: fantasy;
         text-shadow: 2px 1px white;
-        transition: font-size 0.3s linear;
+        transition: all 0.3s linear;
     }
 
 }
@@ -409,32 +409,39 @@ body{
         font-weight: normal;
         font-size: 22px;
         font-family: futura;
-        margin: 10px;
+        margin: 6px;
         overflow: initial;
-        transition: font-size 0.3s linear;
+        transition: all 0.3s linear;
     }
     
-    #instruction-section ul > li > span{
-        font-size: 10px;    
+    #instruction-section ul > li > span{ 
         display: block;
         margin: 4px 8px;
-        font-size: 10px;
+        font-size: 11px;
         font-family: fantasy;
         text-shadow: 2px 1px white;
-        transition: font-size 0.3s linear;
+        transition: all 0.3s linear;
     }
 
 }
 
-@media screen and (max-height: 760px){
-       #instruction-section ul > li > span{
-        font-size: 10px;    
-        display: block;
-        margin: 4px 8px;
-        font-size: 9px;
-        font-family: fantasy;
-        text-shadow: 2px 1px white;
-        transition: font-size 0.3s linear;
+@media screen and (max-height: 810px){
+        #instruction-section > h2{
+            font-weight: normal;
+            font-size: 22px;
+            font-family: futura;
+            margin: 6px;
+            overflow: initial;
+            transition: all 0.3s linear;
+        }
+
+       #instruction-section ul > li > span{   
+            display: block;
+            margin: 1px 8px;
+            font-size: 11px;
+            font-family: fantasy;
+            text-shadow: 2px 1px white;
+            transition: all 0.3s linear;
     }
 
 
