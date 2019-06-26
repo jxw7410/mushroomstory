@@ -9,7 +9,7 @@ body{
     width: 100%;
     background-image: url('../images//maplemushrooms.jpg');
     display:grid;
-    grid-template-columns: 1fr 1000px 1fr;
+    grid-template-columns: 20% 1fr 20%;
     margin: 0;
 
 }
@@ -20,7 +20,7 @@ body{
     grid-column: 2/ 3;
     height: 100%;
     display: grid;
-    grid-template-rows: 130px 700px auto;
+    grid-template-rows: 130px auto auto;
 }
 
 #title{
@@ -55,8 +55,10 @@ body{
     background: lightgray;
     display: block;
     margin: 0 auto;
-    width: 1000px;
-    height: 700px;
+    max-width: 1000px;
+    max-height: 700px;
+    width: 100%;
+    height: 100%;
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
@@ -118,6 +120,7 @@ body{
     grid-template-rows: 130px auto;
     font-size: 30px;
     font-family: futura;
+    transition: font-size 0.3s linear;
 }
 
 #timer-points-section * {
@@ -126,12 +129,20 @@ body{
 
 #timer-points-section > div{
     grid-row: 2/ 3;
-    height: 700px;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+#timer-points-section > div > div {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
@@ -139,7 +150,8 @@ body{
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     width: 75%;
-    height: 100px;
+    height: 15%;
+    max-height: 125px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -147,15 +159,16 @@ body{
 }
 
 #timer-section > span{
-    margin: 0 10px;
+    margin:0 5px;
 }
 
 #point-section{
-    margin-top: 50px;
+    /* margin-top: 50px; */
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     width: 75%;
-    height: 100px;
+    height: 15%;
+    max-height: 125px;
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
@@ -163,23 +176,24 @@ body{
 }
 
 #point-section > span{
-      margin: 0 10px;
+      margin: 0 5px;
 }
 
 #points{
     color: green;
 }
+
 #instruction-section{
-    margin-top: 50px;
+    /* margin-top: 50px; */
     width: 75%;
-    height: 400px;
+    height: 50%;
     background: rgba(255, 255, 255, 0.95);
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation-name: oscillate;
+    /* animation-name: oscillate; */
     animation-duration: 2s;
     animation-iteration-count: infinite;
 
@@ -201,13 +215,18 @@ body{
     font-size: 26px;
     font-family: futura;
     margin: 10px;
-
+    overflow: initial;
+    transition: font-size 0.3s linear;
 }
+
 #instruction-section > article{
     display:flex;
     flex-direction: column;
-    margin: 10px;
-    font-size: 16px;
+    margin:0 10px 10px 10px;
+}
+
+#instruction-section > article > ul > li{
+     font-size: 12px;    
 }
 
 
@@ -232,8 +251,9 @@ body{
 #instruction-section  ul > li > span{
     display: block;
     margin: 5px 10px;
-    font-size: 14px;
+    font-size: 12px;
     font-family: fantasy;
+    transition: font-size 0.3s linear;
     text-shadow: 2px 1px white;
 }
 
@@ -253,7 +273,7 @@ body{
 
 #user-controls-section > div > div {
     width: 75%;
-    height: 700px;
+    height: 85%;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -328,3 +348,65 @@ body{
     font-family: futura;
 }
 
+@media screen and (max-width: 1460px){
+
+    #timer-points-section{
+        height: 100%;
+        grid-column: 1 / 2;
+        display: grid;
+        grid-template-rows: 130px auto;
+        font-size: 25px;
+        font-family: futura;
+        transition: font-size 0.3s linear;
+    }
+}
+
+@media screen and (max-width:1250px){
+    #timer-section{
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        width: 75%;
+        height: 15%;
+        max-height: 125px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width:1075px){
+      #instruction-section ul > li > span{
+        font-size: 10px;    
+        display: block;
+        margin: 5px 10px;
+        font-size: 10px;
+        font-family: fantasy;
+        text-shadow: 2px 1px white;
+        transition: font-size 0.3s linear;
+    }
+
+}
+
+@media screen and (max-height: 850px) {
+    #instruction-section > h2{
+        font-weight: normal;
+        font-size: 22px;
+        font-family: futura;
+        margin: 10px;
+        overflow: initial;
+        transition: font-size 0.3s linear;
+    }
+    
+    #instruction-section ul > li > span{
+        font-size: 10px;    
+        display: block;
+        margin: 5px 10px;
+        font-size: 10px;
+        font-family: fantasy;
+        text-shadow: 2px 1px white;
+        transition: font-size 0.3s linear;
+    }
+
+}
