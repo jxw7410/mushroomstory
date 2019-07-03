@@ -55,27 +55,27 @@
   * Finish up whatever still needs work on.
 
 # Features
-###Physics
+### Physics
   * Player can move the sprite left and right, using the left and right arrow, and jump using the space bar.
 
 ![physics](./assets/images/physics.gif "physics")
 
-###Moving Viewport
+### Moving Viewport
   * Player's screen moves accordingly to bring in new portions of the current map
 
 ![viewport](./assets/images/moving_viewport.gif "moving viewport")
 
-###Maps
+### Maps
   * Player can move on to another map by going into a sign post
 
 ![maps](./assets/images/maps.gif "maps")
 
-###User Interface
+### User Interface
   * Player can pause, mute, or reset the game using the UI
 
 ![UI](./assets/images/ui.gif "ui")
 
-###Point/Timer
+### Point/Timer
   * There is a point system for collecting items, and a timer to time how long the player has played.
 
-![point_time](./assets/images/point_time.gif "point/time")
+<img src='./assets/images/point_time.gif' width="100%">
