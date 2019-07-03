@@ -15,10 +15,6 @@
    * There will be a scrollable viewport for each stage.
    * There will be a timer to time how long it took for the player to complete all the stages.
    * There will be music, and sound effects for moving, and jumping
-
-## Bonus MVP (if time alloted)
-   * Add enemies that hinders the player. Unforunately, Player won't be able to kill these enemies.
-   * Add a point/timer record system.
   
 # Architecture and Technologies 
   * HTML5 Canvas
@@ -57,3 +53,29 @@
   * Add the timer, and add music, and sound effects for the game.
   * Doll up the webpage with html, and css
   * Finish up whatever still needs work on.
+
+# Features
+###Physics
+  * Player can move the sprite left and right, using the left and right arrow, and jump using the space bar.
+
+![physics](./assets/images/physics.gif "physics")
+
+###Moving Viewport
+  * Player's screen moves accordingly to bring in new portions of the current map
+
+![viewport](./assets/images/moving_viewport.gif "moving viewport")
+
+###Maps
+  * Player can move on to another map by going into a sign post
+
+![maps](./assets/images/maps.gif "maps")
+
+###User Interface
+  * Player can pause, mute, or reset the game using the UI
+
+![UI](./assets/images/ui.gif "ui")
+
+###Point/Timer
+  * There is a point system for collecting items, and a timer to time how long the player has played.
+
+![point_time](./assets/images/point_time.gif "point/time")
