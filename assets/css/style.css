@@ -1,4 +1,3 @@
-
 html{
     width: 100%;
     height: 100%;
@@ -83,18 +82,21 @@ body{
     border-radius: 10px;
 }
 
-
+#personal-links-wrapper{
+    display: flex;
+    justify-content: center;
+}
 
 #personal-links{
     margin-top: 10px;
-    width: 100%;
     height: 50px;
     display:flex;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     align-items: center;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 5px;
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
 }
 
 #personal-links > a {
@@ -136,19 +138,23 @@ body{
     align-items: center;
 }
 
-#timer-points-section > div > div {
-    height: 85%;
+
+#timer-points-section-wrapper{
+    width: 75%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
 
+#timer-points-section-wrapper > div{
+    width: 100%;
+}
 
 #timer-section{
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
-    width: 75%;
     height: 15%;
     max-height: 125px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -165,7 +171,6 @@ body{
     /* margin-top: 50px; */
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
-    width: 75%;
     height: 15%;
     max-height: 125px;
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -184,7 +189,6 @@ body{
 
 #instruction-section{
     /* margin-top: 50px; */
-    width: 75%;
     height: 50%;
     background: rgba(255, 255, 255, 0.95);
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -205,9 +209,7 @@ body{
 }
 
 
-#instruction-section * {
-    overflow: hidden;
-}
+
 
 #instruction-section > h2 {
     font-weight:normal;
@@ -218,43 +220,93 @@ body{
     transition: all 0.3s linear;
 }
 
+
+#instruction-section > h3 {
+    font-weight:normal;
+    font-size: 16px;
+    font-family: futura;
+    margin: 10px;
+    margin-top: -5px;
+    overflow: initial;
+    transition: all 0.3s linear;
+}
+
 #instruction-section > article{
     display:flex;
     flex-direction: column;
+    align-items: center;
     margin:0 10px 10px 10px;
-}
-
-#instruction-section > article > ul > li{
-     font-size: 12px;    
+    height: 100%;
+    width: 100%;
 }
 
 
 #instruction-section ul {
     margin: 0;
     padding: 0;
-    list-style: disc;
     color: black;
-    display: flex;
-    flex-direction: column;
-    justify-content:space-evenly;
-    height: 400px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    list-style: none;
+    width: 90%;
 }
+
 
 #instruction-section  ul > li{
-    background: rgba(173, 217, 237, 0.5);
-    display: flex;
-    justify-content: flex-start;
-    border-radius: 10px;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
-#instruction-section  ul > li > span{
-    display: block;
-    margin: 5px 10px;
-    font-size: 12px;
-    font-family: fantasy;
-    transition: all 0.3s linear;
-    text-shadow: 2px 1px white;
+#instruction-section  ul > li > div{
+    display: flex;
+    position: relative;
 }
+
+#instruction-section  ul > li > div:hover .message{
+    visibility: visible;
+    background: rgba(12, 116, 252, 0.8);
+    z-index: 999;
+}
+
+#instruction-section  ul > li:nth-child(2) > div:hover .message{
+    top: -100%;
+}
+
+#instruction-section  ul > li:nth-child(3) > div:hover .message{
+    bottom: 0px;
+}
+
+#instruction-section  ul > li > div:hover{
+    cursor: pointer;
+    color: gray;
+}
+
+.instr_span{
+    font-size: 26px;
+}
+
+.message{
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 12px;
+    width: 250px;
+    left: 120px;
+    color: white;
+}
+.message > span {
+    font-size: 16px;
+    margin: 10px 0;
+    width: 90%;
+}
+
 
 #user-controls-section{
     grid-column: 3 /4;
@@ -272,7 +324,7 @@ body{
 
 #user-controls-section > div > div {
     width: 75%;
-    height: 85%;
+    height: 80%;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -297,6 +349,7 @@ body{
     color: white;
     background: rgb(90, 90, 252);
     border-radius: 5px;
+    transition: font-size 0.2s linear, height 0.2s linear;
 }
 
 #button-grids > button:hover{
@@ -304,7 +357,8 @@ body{
     background: rgb(132, 132, 247);
     font-size: 28px;
     width: 62%;
-    height: 55px;
+    height: 60px;
+    transition: font-size 0.2s linear, height 0.2s linear;
 }
 
 #pause-button{
@@ -349,8 +403,8 @@ body{
     transition: font-size 0.3s linear;
 }
 
-@media screen and (max-width: 1460px){
 
+@media screen and (max-width: 1460px){
     #timer-points-section{
         height: 100%;
         grid-column: 1 / 2;
@@ -373,11 +427,10 @@ body{
     }
 }
 
-@media screen and (max-width:1250px){
+@media screen and (max-width:1280px){
     #timer-section{
         background: rgba(255, 255, 255, 0.95);
         border-radius: 10px;
-        width: 75%;
         height: 15%;
         max-height: 125px;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
@@ -386,18 +439,14 @@ body{
         justify-content: center;
         flex-direction: column;
     }
+
 }
 
 @media screen and (max-width:1075px){
-      #instruction-section ul > li > span{
-        font-size: 10px;    
-        display: block;
-        margin: 5px 10px;
+    #instruction-section ul > li > div {
         font-size: 10px;
-        font-family: fantasy;
-        text-shadow: 2px 1px white;
-        transition: all 0.3s linear;
     }
+
 
 }
 
@@ -411,14 +460,6 @@ body{
         transition: all 0.3s linear;
     }
     
-    #instruction-section ul > li > span{ 
-        display: block;
-        margin: 4px 8px;
-        font-size: 11px;
-        font-family: fantasy;
-        text-shadow: 2px 1px white;
-        transition: all 0.3s linear;
-    }
 
 }
 
@@ -431,15 +472,6 @@ body{
             overflow: initial;
             transition: all 0.3s linear;
         }
-
-       #instruction-section ul > li > span{   
-            display: block;
-            margin: 1px 8px;
-            font-size: 11px;
-            font-family: fantasy;
-            text-shadow: 2px 1px white;
-            transition: all 0.3s linear;
-    }
 
 
 }

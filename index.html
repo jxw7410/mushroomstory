@@ -13,7 +13,7 @@
 <body>
     <div id='timer-points-section'>
         <div>
-            <div>
+            <div id='timer-points-section-wrapper'>
                 <div id='timer-section'>
                     <span>Time:</span>
                     <span id='time'>00:00:00</span>
@@ -24,17 +24,39 @@
                 </div>
 
                 <div id='instruction-section'>
-                    <h2>Instruction</h2>
+                    <h2>Instructions</h2>
+                    <h3>Please Hover Over</h3>
                     <article>
                         <ul>
-                            <li> <span>Press Left or Right arrow to move accordingly.</span></li>
-                            <li> <span>Press space to Jump.</span> </li>
-                            <li> <span>Press space while jumping for 2nd Jump.</span></li>
-                            <li> <span>You can jump and slide against jagged walls.</span></li>
                             <li>
-                                <span>
-                                    Collect the beer for points, and find the sign posts to go to the next stage
-                                </span>
+                                <div>
+                                    <span class='instr_span'>Controls</span>
+                                    <div class='message'>
+                                        <span>Press Left or Right Arrow to move</span>
+                                        <span>Press Space to Jump</span>
+                                        <span>While jumping press Space to Jump again</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span class='instr_span'>Features</span>
+                                    <div class='message'>
+                                        <span>You can move to a new map by going into sign posts</span>
+                                        <span>You can slide, and jump against walls that are jagged.</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <span class='instr_span'>Objective</span>
+                                    <div class='message'>
+                                        <span>
+                                            Complete all the stages with as much points as possible, and as fast as
+                                            possible.
+                                        </span>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </article>
@@ -51,11 +73,19 @@
             <div id='pause-screen'><span>PAUSE</span></div>
             <canvas id='myCanvas' width="608" height='304'></canvas>
         </div>
-
-        <nav id='personal-links'>
-            <a id='git-link' href='https://github.com/jxw7410/jxw7410.github.io'><i
-                    class="fab fa-github"></i><span>Git</span></span></a>
-        </nav>
+        <div id='personal-links-wrapper'>
+            <nav id='personal-links'>
+                <a href='https://github.com/jxw7410/jxw7410.github.io' target='_blank'><i
+                        class="fab fa-github"></i><span>Git</span></span>
+                </a>
+                <a href='https://angel.co/jian-wu-12?public_profile=1' target='_blank'>
+                    <i class="fab fa-angellist"></i><span>AngelList</span>
+                </a>
+                <a href='https://www.linkedin.com/in/jian-hong-wu-b1535284/' target='_blank'>
+                    <i class="fab fa-linkedin"></i><span>Linkedin</span>
+                </a>
+            </nav>
+        </div>
     </div>
     <div id='user-controls-section'>
         <div>

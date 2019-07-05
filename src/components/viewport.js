@@ -2,7 +2,6 @@ class ViewPort{
     constructor(){
         this.x = 0;
         this.y = 0;
-        //Set to match canvas height/width;
         this.width = 608;
         this.height = 304;
         this.max_x = 0;
