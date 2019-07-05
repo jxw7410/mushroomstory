@@ -55,7 +55,6 @@ body{
 #myCanvas {
     background: lightgray;
     display: block;
-    margin: 0 auto;
     max-width: 1000px;
     max-height: 700px;
     width: 100%;
@@ -66,6 +65,10 @@ body{
 
 #player-screen{
     position: relative;
+    display: flex;
+    justify-content: center;
+    max-width: 1000px;
+    max-height: 700px;
 }
 
 #pause-screen{

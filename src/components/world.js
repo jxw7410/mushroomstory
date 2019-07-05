@@ -1,5 +1,5 @@
 import UserModel from './models/user_model'
-import maps from './all_maps';
+import {maps, totalMaps} from './all_maps';
 import FoodModel from './models/food_model';
 import TileSheet from './tilesheet';
 import PlatformModel from './models/platform_model';
@@ -24,7 +24,6 @@ class World {
         this.width = 0;
         this.sounds = null;
 
-        this.maps = maps();
         this.map_index = 0;
         this.map = null;
         this.checkPointIndex = 0;
@@ -38,7 +37,7 @@ class World {
 
   
     load(){
-        this.map = this.maps[this.map_index]
+        this.map = maps(this.map_index)
         this.player.pos_x = this.map.init_x;
         this.player.pos_y = this.map.init_y;
         this.checkPointIndex = 0;
@@ -56,7 +55,7 @@ class World {
 
     nextMap(){
         this.map_index += 1;
-        if (this.map_index >= this.maps.length){
+        if (this.map_index >= totalMaps()){
             this.game.game_state = 'END'
             this.game.mute();
         }
