@@ -67,8 +67,6 @@ body{
     position: relative;
     display: flex;
     justify-content: center;
-    max-width: 1000px;
-    max-height: 700px;
 }
 
 #pause-screen{
@@ -83,6 +81,8 @@ body{
     height: 100%;
     width: 100%;
     border-radius: 10px;
+    max-width: 1000px;
+    max-height: 700px;
 }
 
 #personal-links-wrapper{
